@@ -1,0 +1,26 @@
+{
+  "name": "service-user",
+  "version": "1.0.0",
+  "description": "Microservice for Users",
+  "scripts": {
+    "lint": "tslint -c tslint.json -p tsconfig.json --fix",
+    "dev": "nodemon --config \"./util/nodemon.json\"/",
+    "build": "rm -rf ./dist/ && tsc",
+    "serve": "pm2",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "funwarn",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.6",
+    "@types/node": "^13.11.1",
+    "nodemon": "^2.0.2",
+    "ts-node": "^8.8.1",
+    "tslint": "^5.20.1",
+    "typescript": "^3.8.3"
+  }
+}

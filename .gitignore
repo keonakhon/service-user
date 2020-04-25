@@ -1,0 +1,10 @@
+#environment
+.env
+
+# dependencies
+package-lock.json
+/node_modules
+.vscode
+
+# production
+/dist
