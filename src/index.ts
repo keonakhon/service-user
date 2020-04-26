@@ -1,21 +1,14 @@
 import express from "express";
 import graphqlHTTP from "express-graphql";
-import { buildSchema } from "graphql";
+
+// graphql schema
+import schema from "./schemas/user";
+
+// graphql resolver
+import resolvers from "./resolvers/user";
 
 const app = express();
 const port = 8080; // default port to listen
-
-// Construct a schema, using GraphQL schema language
-const schema = buildSchema(`
-  type Query {
-    hello: String
-  }
-`);
-
-// Provide resolver functions for your schema fields
-const resolvers = {
-  hello: () => "Hello world!"
-};
 
 app.use(
   "/graphql",
