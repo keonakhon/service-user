@@ -5,6 +5,10 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
+ARG APP_PORT=3000
+
+ENV PORT=${APP_PORT}
+
 RUN npm install
 # If you are building your code for production
 # RUN npm ci --only=production
@@ -12,5 +16,5 @@ RUN npm install
 # Bundle app source
 COPY . .
 
-EXPOSE 8080
+EXPOSE ${APP_PORT}
 CMD [ "npm", "run", "dev" ]

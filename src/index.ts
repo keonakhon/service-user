@@ -8,7 +8,7 @@ import schema from "./schemas/user";
 import resolvers from "./resolvers/user";
 
 const app = express();
-const port = 8080; // default port to listen
+const port = process.env.PORT || 3000;
 
 app.use(
   "/graphql",
