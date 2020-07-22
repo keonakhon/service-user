@@ -4,7 +4,7 @@
     "script": "./dist/index.js",
     "watch": true,
     "env": {
-      "PORT": 8080,
+      "PORT": 3000,
       "NODE_ENV": "development"
     }
   }]
