@@ -2,7 +2,7 @@ import express from "express";
 import graphqlHTTP from "express-graphql";
 
 // graphql schema
-import schema from "./schemas/user";
+import schema from "./schemas/index";
 
 // graphql resolver
 import resolvers from "./resolvers/user";
