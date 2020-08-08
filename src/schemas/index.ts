@@ -3,12 +3,12 @@ import { buildSchema } from "graphql";
 // Construct a schema, using GraphQL schema language
 const schema = buildSchema(`
   type LoginWithFB {
-    refresh_token: String
+    status: String
   }
 
   type Query {
     hello: String
-    fbLogin(fb_token: String!): LoginWithFB
+    fbLogin(status: String!): LoginWithFB
   },
 `);
 

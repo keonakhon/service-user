@@ -1,12 +1,12 @@
 // Provide resolver functions for your schema fields
 interface FacebookLogin {
-  fb_token: { fb_token: string };
+  status: { status: string };
 }
 
 const resolvers = {
   hello: () => "Hello world!",
-  fbLogin: ({ fb_token }: FacebookLogin): object => {
-    return { refresh_token: fb_token };
+  fbLogin: ({ status }: FacebookLogin): object => {
+    return { status };
   }
 };
 
