@@ -1,5 +1,8 @@
+import dotenv from "dotenv";
 import express from "express";
 import graphqlHTTP from "express-graphql";
+
+dotenv.config();
 
 // graphql schema
 import schema from "./schemas/index";
