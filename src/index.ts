@@ -8,7 +8,7 @@ dotenv.config();
 import schema from "./schemas/index";
 
 // graphql resolver
-import resolvers from "./resolvers/user";
+import resolvers from "./resolvers/index";
 
 const app = express();
 const port = process.env.PORT || 3000;
