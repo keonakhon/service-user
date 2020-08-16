@@ -1,3 +1,4 @@
+/* DB Connection Config */
 import mongoose from "mongoose";
 import { MongoMemoryServer } from "mongodb-memory-server";
 
@@ -8,9 +9,7 @@ let uri = keys.uri;
 const mongod = new MongoMemoryServer();
 
 class DBConnection {
-  constructor() {
-    this.connect();
-  }
+  constructor() {}
 
   async connect() {
     if (process.env.NODE_ENV === "test") {
