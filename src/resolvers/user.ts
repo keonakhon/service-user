@@ -1,6 +1,10 @@
 // User Resolver
 import axios from "axios";
 
+// Models
+import UserModel from "./../models/user";
+import UserTokenSchema from "./../models/user_token";
+
 interface FacebookLogin {
   status: string;
   authResponse: {
@@ -15,23 +19,32 @@ interface FacebookLogin {
 const fbLogin = async ({ status, authResponse }: FacebookLogin) => {
   try {
     if (status === "connected") {
-      const userToken = authResponse.accessToken;
+      const fbUserToken = authResponse.accessToken;
 
       // Inspect Token from facebook api
-      const indpectorToken = await axios.get(
-        `https://graph.facebook.com/debug_token?input_token=${userToken}&access_token=${process.env.facebook_app_access_token}`
+      const fbIndpectorToken = await axios.get(
+        `https://graph.facebook.com/debug_token?input_token=${fbUserToken}&access_token=${process.env.facebook_app_access_token}`
       );
-      const userID = indpectorToken.data.data.user_id;
+      const userID = fbIndpectorToken.data.data.user_id;
 
       // User Data from facebook api
-      const userData = await axios.get(
-        `https://graph.facebook.com/${userID}?fields=id,name&access_token=${userToken}`
+      const fbUserData = await axios.get(
+        `https://graph.facebook.com/${userID}?fields=id,name&access_token=${fbUserToken}`
       );
+
+      const userObj = new UserModel({
+        facebook: {
+          facebook_id: fbUserData.data.id,
+          facebook_name: fbUserData.data.name
+        }
+      });
+
+      await userObj.save();
 
       return { status };
     }
   } catch (err) {
-    // console.error(err);
+    console.error(err);
   }
 };
 
