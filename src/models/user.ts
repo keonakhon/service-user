@@ -1,24 +1,32 @@
+/* User - User Schema */
 import { Schema, model } from "mongoose";
 
-const UserSchema: Schema = new Schema({
-  username: { type: String, unique: true, lowercase: true },
-  display_name: { type: String },
-  email: { type: String },
-  password: { type: String },
-  banned_id: { type: String },
-  ip: { type: String },
-  created_date: { type: String, default: Date.now },
-  facebook: {
-    type: {
-      facebook_access_token: { type: String },
-      facebook_id: { type: String }
+const UserSchema: Schema = new Schema(
+  {
+    username: { type: String, unique: true, lowercase: true },
+    display_name: { type: String, default: null },
+    email: { type: String, unique: true, lowercase: true },
+    password: { type: String, default: null },
+    banned_id: { type: String, default: null },
+    facebook: {
+      type: {
+        facebook_id: {
+          type: String,
+          required: true,
+          unique: true
+        }
+      },
+      default: null
     },
-    default: null
+    birthdate: { type: Date, default: null },
+    gender: { type: String, enum: ["male", "female"], default: null },
+    created_date: { type: Date, default: Date.now }
   },
-  birthdate: { type: Date },
-  gender: { type: String }
-});
+  {
+    collection: "fw_user"
+  }
+);
 
-const UserModel = model("User", UserSchema);
+const UserModel = model("fw_user", UserSchema);
 
 export default UserModel;
