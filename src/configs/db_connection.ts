@@ -11,7 +11,7 @@ const mongod = new MongoMemoryServer();
 class DBConnection {
   constructor() {}
 
-  async connect() {
+  async Connect() {
     if (process.env.NODE_ENV === "test") {
       uri = await mongod.getConnectionString();
     }

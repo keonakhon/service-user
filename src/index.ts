@@ -9,7 +9,7 @@ dotenv.config();
 import DBConnection from "./configs/db_connection";
 
 // Connect DB
-DBConnection.connect;
+DBConnection.Connect();
 
 // graphql schema
 import schema from "./schemas/index";
