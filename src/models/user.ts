@@ -19,7 +19,7 @@ const UserSchema: Schema = new Schema(
       default: null
     },
     birthdate: { type: Date, default: null },
-    gender: { type: String, enum: ["male", "female"], default: null },
+    gender: { type: String, enum: ["male", "female", null], default: null },
     created_date: { type: Date, default: Date.now }
   },
   {
