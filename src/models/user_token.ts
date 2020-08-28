@@ -10,6 +10,7 @@ const UserTokenSchema: Schema = new Schema(
     },
     provider: { type: String, enum: ["facebook"], default: "facebook" },
     facebook: {
+      facebook_name: { type: String, default: null },
       facebook_access_token: { type: String, default: null }
     },
     ip: { type: String, default: null },
