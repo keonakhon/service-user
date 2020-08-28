@@ -1,5 +1,8 @@
 /* User - User Schema */
 import { Schema, model } from "mongoose";
+import jwt from "jsonwebtoken";
+
+import config from "../configs/keys";
 
 const UserSchema: Schema = new Schema(
   {
@@ -26,6 +29,24 @@ const UserSchema: Schema = new Schema(
     collection: "fw_user"
   }
 );
+
+// Custom method for generate access token
+UserSchema.methods.accessToken = function (id: string) {
+  const token = jwt.sign({ _id: id }, config.access_token_secret, {
+    expiresIn: config.access_token_life
+  });
+
+  return token;
+};
+
+// Custom method for generate refresh token
+UserSchema.methods.refreshToken = function (id: string) {
+  const token = jwt.sign({ _id: id }, config.refresh_token_secret, {
+    expiresIn: config.refresh_token_life
+  });
+
+  return token;
+};
 
 const UserModel = model("fw_user", UserSchema);
 
