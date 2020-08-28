@@ -20,13 +20,21 @@ import resolvers from "./resolvers/index";
 const app = express();
 const port = process.env.PORT || 3000;
 
+// graphql context
+const context = async (req: any) => {
+  const ip_address = req.ip;
+
+  return { ip_address };
+};
+
 app.use(
   "/graphql",
-  graphqlHTTP({
+  graphqlHTTP((req: any) => ({
     schema,
     rootValue: resolvers,
-    graphiql: true
-  })
+    graphiql: true,
+    context: () => context(req)
+  }))
 );
 
 // start the Express server
