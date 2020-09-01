@@ -10,17 +10,20 @@ class UserHelper {
   expiresIn: string;
   signedRequest: string;
   userID: string;
+  ipAddress: string;
 
   constructor(
     accessToken: string,
     expiresIn: string,
     signedRequest: string,
-    userID: string
+    userID: string,
+    ipAddress: string
   ) {
     this.accessToken = accessToken;
     this.expiresIn = expiresIn;
     this.signedRequest = signedRequest;
     this.userID = userID;
+    this.ipAddress = ipAddress;
 
     this.CheckUser();
   }
