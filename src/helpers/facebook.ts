@@ -86,9 +86,9 @@ class FacebookHelper {
       await userTokenObj.save();
 
       return {
-        "x-auth-access-token": accessToken,
-        "x-auth-refresh-token": refreshToken,
-        user_id
+        user_id,
+        access_token: accessToken,
+        refresh_token: refreshToken
       };
     } catch (err) {
       throw new Error(err);
