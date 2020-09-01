@@ -24,8 +24,6 @@ class FacebookHelper {
     this.signedRequest = signedRequest;
     this.userID = userID;
     this.ipAddress = ipAddress;
-
-    this.CheckUser();
   }
 
   /* Check if user already existed */
