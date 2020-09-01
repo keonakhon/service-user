@@ -50,13 +50,28 @@ class UserHelper {
         "facebook.facebook_id": fbUserID
       });
 
-      return userData;
+      if (userData) {
+        return this.Login(userData);
+      }
     } catch (err) {
       throw new Error(err);
     }
   }
 
-  async login() {}
+  async Login(userData: any) {
+    try {
+      const accessToken = userData.accessToken(userData._id);
+      const refreshToken = userData.refreshToken(userData._id);
+
+      return {
+        "x-auth-access-token": accessToken,
+        "x-auth-refresh-token": refreshToken,
+        user_id: userData._id
+      };
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
 }
 
 export default UserHelper;
