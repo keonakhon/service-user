@@ -13,7 +13,6 @@ const UserTokenSchema: Schema = new Schema(
       facebook_name: { type: String, default: null },
       facebook_access_token: { type: String, default: null }
     },
-    ip: { type: String, default: null },
     current_access_token: { type: String, default: null },
     current_refresh_token: { type: String, default: null },
     tokens: [
