@@ -2,10 +2,10 @@
 import axios from "axios";
 
 // Models
-import UserModel from "./../models/user";
-import UserTokenSchema from "./../models/user_token";
+import UserModel from "../models/user";
+import UserTokenSchema from "../models/user_token";
 
-class UserHelper {
+class FacebookHelper {
   accessToken: string;
   expiresIn: string;
   signedRequest: string;
@@ -74,4 +74,4 @@ class UserHelper {
   }
 }
 
-export default UserHelper;
+export default FacebookHelper;
