@@ -10,7 +10,9 @@ const schema = buildSchema(`
   }
 
   type LoginWithFB {
-    status: String
+    user_id: String,
+    access_token: String,
+    refresh_token: String
   }
 
   type Query {

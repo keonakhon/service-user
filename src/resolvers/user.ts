@@ -31,7 +31,7 @@ const fbLogin = async (
 
       const userData = await facebookClass.CheckUser();
 
-      return { status };
+      return userData;
     }
   } catch (err) {
     console.error(err);
