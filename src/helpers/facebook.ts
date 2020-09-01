@@ -3,7 +3,7 @@ import axios from "axios";
 
 // Models
 import UserModel from "../models/user";
-import UserTokenSchema from "../models/user_token";
+import UserTokenModel from "../models/user_token";
 
 class FacebookHelper {
   accessToken: string;
@@ -32,6 +32,7 @@ class FacebookHelper {
   async CheckUser() {
     try {
       const fbUserToken = this.accessToken;
+      const ipAddress = this.ipAddress;
 
       // Inspect Token from facebook api
       const fbIndpectorToken = await axios.get(
@@ -51,22 +52,45 @@ class FacebookHelper {
       });
 
       if (userData) {
-        return this.Login(userData);
+        return this.Login(userData, fbUserFullname, fbUserToken, ipAddress);
       }
     } catch (err) {
       throw new Error(err);
     }
   }
 
-  async Login(userData: any) {
+  async Login(
+    userData: any,
+    facebook_name: string,
+    facebook_access_token: string,
+    ipAddress: string
+  ) {
     try {
       const accessToken = userData.accessToken(userData._id);
       const refreshToken = userData.refreshToken(userData._id);
+      const user_id = userData._id;
+
+      // Save Token
+      const userTokenObj = new UserTokenModel({
+        user_id,
+        facebook: { facebook_name, facebook_access_token },
+        current_access_token: accessToken,
+        current_refresh_token: refreshToken,
+        tokens: [
+          {
+            access_token: accessToken,
+            refresh_token: refreshToken,
+            ip: ipAddress,
+            created_date: new Date()
+          }
+        ]
+      });
+      await userTokenObj.save();
 
       return {
         "x-auth-access-token": accessToken,
         "x-auth-refresh-token": refreshToken,
-        user_id: userData._id
+        user_id
       };
     } catch (err) {
       throw new Error(err);
