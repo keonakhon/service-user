@@ -18,9 +18,8 @@ const UserSchema: Schema = new Schema(
           required: true,
           unique: true
         },
-        facebook_link: {
-          type: String,
-          required: true
+        facebook_url: {
+          type: String
         }
       },
       default: null
