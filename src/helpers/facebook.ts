@@ -5,6 +5,11 @@ import axios from "axios";
 import UserModel from "../models/user";
 import UserTokenModel from "../models/user_token";
 
+interface FacebookPermissionType {
+  permission: string;
+  status: string;
+}
+
 class FacebookHelper {
   accessToken: string;
   expiresIn: string;
@@ -29,21 +34,32 @@ class FacebookHelper {
   /* Check if user already existed */
   async CheckUser() {
     try {
+      const fbGraphURL = "https://graph.facebook.com";
       const fbUserToken = this.accessToken;
       const ipAddress = this.ipAddress;
 
       // Inspect Token from facebook api
       const fbIndpectorToken = await axios.get(
-        `https://graph.facebook.com/debug_token?input_token=${fbUserToken}&access_token=${process.env.facebook_app_access_token}`
+        `${fbGraphURL}/debug_token?input_token=${fbUserToken}&access_token=${process.env.facebook_app_access_token}`
       );
       const userID = fbIndpectorToken.data.data.user_id;
 
       // User Data from facebook api
       const fbUserData = await axios.get(
-        `https://graph.facebook.com/${userID}?fields=id,name&access_token=${fbUserToken}`
+        `${fbGraphURL}/${userID}?fields=id,name,permissions&access_token=${fbUserToken}`
       );
-      const fbUserID = fbUserData.data.id;
-      const fbUserFullname = fbUserData.data.id;
+      const fbData = fbUserData.data;
+      const fbUserID = fbData.id;
+      const fbUserFullname = fbData.id;
+
+      // Check Permissions
+      const fbEmailPermission = await fbData.permissions.data.find(
+        ({ permission, status }: FacebookPermissionType) =>
+          permission === "email" && status === "granted"
+      );
+      if (!fbEmailPermission) {
+        throw "Please allow us to get your email";
+      }
 
       const userData = await UserModel.findOne({
         "facebook.facebook_id": fbUserID
@@ -53,7 +69,7 @@ class FacebookHelper {
         return this.Login(userData, fbUserFullname, fbUserToken, ipAddress);
       }
     } catch (err) {
-      throw new Error(err);
+      return new Error(err);
     }
   }
 
