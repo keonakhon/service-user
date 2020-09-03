@@ -63,14 +63,20 @@ class FacebookHelper {
       const fbUserFullname = fbData.name;
       const fbEmail = fbData.email;
 
+      // If data existed, login. Otherwise signup
       const userData = await UserModel.findOne({
         "facebook.facebook_id": fbUserID
       });
-
       if (userData) {
         return this.Login(userData, fbUserFullname, fbUserToken, ipAddress);
       } else {
-        return this.SignUp();
+        return this.SignUp(
+          fbEmail,
+          fbUserID,
+          fbUserFullname,
+          fbUserToken,
+          ipAddress
+        );
       }
     } catch (err) {
       return new Error(err);
@@ -80,8 +86,8 @@ class FacebookHelper {
   // Login Method
   private async Login(
     userData: any,
-    fb_name: string,
-    fb_access_token: string,
+    facebook_name: string,
+    facebook_access_token: string,
     ipAddress: string
   ) {
     try {
@@ -92,7 +98,7 @@ class FacebookHelper {
       // Save Token
       const userTokenObj = new UserTokenModel({
         user_id,
-        facebook: { fb_name, fb_access_token },
+        facebook: { facebook_name, facebook_access_token },
         current_access_token: accessToken,
         current_refresh_token: refreshToken,
         tokens: [
@@ -117,7 +123,13 @@ class FacebookHelper {
   }
 
   // Sign Up Method
-  private SignUp() {}
+  private SignUp(
+    email: string,
+    facebook_id: string,
+    facebook_name: string,
+    facebook_access_token: string,
+    ipAddress: string
+  ) {}
 }
 
 export default FacebookHelper;
