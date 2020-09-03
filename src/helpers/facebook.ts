@@ -46,11 +46,9 @@ class FacebookHelper {
 
       // User Data from facebook api
       const fbUserData = await axios.get(
-        `${fbGraphURL}/${userID}?fields=id,name,permissions&access_token=${fbUserToken}`
+        `${fbGraphURL}/${userID}?fields=id,name,email,permissions&access_token=${fbUserToken}`
       );
       const fbData = fbUserData.data;
-      const fbUserID = fbData.id;
-      const fbUserFullname = fbData.id;
 
       // Check Permissions
       const fbEmailPermission = await fbData.permissions.data.find(
@@ -61,22 +59,29 @@ class FacebookHelper {
         throw "Please allow us to get your email";
       }
 
+      const fbUserID = fbData.id;
+      const fbUserFullname = fbData.name;
+      const fbEmail = fbData.email;
+
       const userData = await UserModel.findOne({
         "facebook.facebook_id": fbUserID
       });
 
       if (userData) {
         return this.Login(userData, fbUserFullname, fbUserToken, ipAddress);
+      } else {
+        return this.SignUp();
       }
     } catch (err) {
       return new Error(err);
     }
   }
 
-  async Login(
+  // Login Method
+  private async Login(
     userData: any,
-    facebook_name: string,
-    facebook_access_token: string,
+    fb_name: string,
+    fb_access_token: string,
     ipAddress: string
   ) {
     try {
@@ -87,7 +92,7 @@ class FacebookHelper {
       // Save Token
       const userTokenObj = new UserTokenModel({
         user_id,
-        facebook: { facebook_name, facebook_access_token },
+        facebook: { fb_name, fb_access_token },
         current_access_token: accessToken,
         current_refresh_token: refreshToken,
         tokens: [
@@ -110,6 +115,9 @@ class FacebookHelper {
       throw new Error(err);
     }
   }
+
+  // Sign Up Method
+  private SignUp() {}
 }
 
 export default FacebookHelper;
