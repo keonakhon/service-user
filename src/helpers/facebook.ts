@@ -1,4 +1,4 @@
-/* User Helper */
+/* Facebook Helper */
 import axios from "axios";
 
 // Models
@@ -61,7 +61,7 @@ class FacebookHelper {
 
       const fbUserID = fbData.id;
       const fbUserFullname = fbData.name;
-      const fbEmail = fbData.email;
+      const fbUserEmail = fbData.email;
 
       // If data existed, login. Otherwise signup
       const userData = await UserModel.findOne({
@@ -71,7 +71,7 @@ class FacebookHelper {
         return this.Login(userData, fbUserFullname, fbUserToken, ipAddress);
       } else {
         return this.SignUp(
-          fbEmail,
+          fbUserEmail,
           fbUserID,
           fbUserFullname,
           fbUserToken,
@@ -123,13 +123,31 @@ class FacebookHelper {
   }
 
   // Sign Up Method
-  private SignUp(
+  private async SignUp(
     email: string,
     facebook_id: string,
     facebook_name: string,
     facebook_access_token: string,
     ipAddress: string
-  ) {}
+  ) {
+    try {
+      const userObj = new UserModel({
+        email,
+        facebook: { facebook_id }
+      });
+
+      const userData = await userObj.save();
+
+      return this.Login(
+        userData,
+        facebook_name,
+        facebook_access_token,
+        ipAddress
+      );
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
 }
 
 export default FacebookHelper;
