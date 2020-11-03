@@ -1,5 +1,5 @@
-const http = require("http");
-import * as dotenv from "dotenv";
+import http from "http";
+import dotenv from "dotenv";
 dotenv.config();
 
 import app from "./app";
