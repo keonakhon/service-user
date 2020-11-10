@@ -37,10 +37,18 @@ class FacebookHelper {
       const fbGraphURL = "https://graph.facebook.com";
       const fbUserToken = this.accessToken;
       const ipAddress = this.ipAddress;
+      const appID = process.env.facebook_app_id;
+      const appSecret = process.env.facebook_app_secret;
+
+      // App Access Token
+      const appAccessTokenData = await axios.get(
+        `${fbGraphURL}/oauth/access_token?client_id=${appID}&client_secret=${appSecret}&grant_type=client_credentials`
+      );
+      const appAccessToken = appAccessTokenData.data.access_token;
 
       // Inspect Token from facebook api
       const fbIndpectorToken = await axios.get(
-        `${fbGraphURL}/debug_token?input_token=${fbUserToken}&access_token=${process.env.facebook_app_access_token}`
+        `${fbGraphURL}/debug_token?input_token=${fbUserToken}&access_token=${appAccessToken}`
       );
       const userID = fbIndpectorToken.data.data.user_id;
 
