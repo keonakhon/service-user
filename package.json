@@ -7,7 +7,7 @@
     "dev": "nodemon --config \"./util/nodemon.json\"/",
     "build": "rm -rf ./dist/ && tsc",
     "serve": "npm run build && pm2-runtime start ecosystem.prod.config.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "funwarn",
   "license": "ISC",

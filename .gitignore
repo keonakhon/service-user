@@ -8,3 +8,6 @@ package-lock.json
 
 # production
 /dist
+
+# secret or token
+/__test__/util/static/
