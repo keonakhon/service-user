@@ -34,7 +34,7 @@ const fbLogin = async (
       return userData;
     }
   } catch (err) {
-    console.error(err);
+    return new Error(err);
   }
 };
 

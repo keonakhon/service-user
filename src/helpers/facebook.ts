@@ -139,9 +139,13 @@ class FacebookHelper {
     ipAddress: string
   ) {
     try {
+      // Create a unique username
+      const mockUsername = Date.now();
+
       const userObj = new UserModel({
         email,
-        facebook: { facebook_id }
+        facebook: { facebook_id },
+        username: mockUsername
       });
 
       const userData = await userObj.save();
