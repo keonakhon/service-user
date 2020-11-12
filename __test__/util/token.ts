@@ -27,7 +27,7 @@ const fbAccessTokenTestUser = async () => {
 
     return newLongLivedAccessToken;
   } catch (err) {
-    // console.error(err);
+    console.error(err);
   }
 };
 
