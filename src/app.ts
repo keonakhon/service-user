@@ -1,6 +1,5 @@
 import dotenv from "dotenv";
-import express from "express";
-import graphqlHTTP from "express-graphql";
+import { ApolloServer } from "apollo-server";
 
 // Env from .env
 dotenv.config();
@@ -12,34 +11,24 @@ import DBConnection from "./configs/db_connection";
 DBConnection.Connect();
 
 // graphql schema
-import schema from "./schemas/index";
+import typeDefs from "./schemas/index";
 
 // graphql resolver
 import resolvers from "./resolvers/index";
 
-const app = express();
-
 // graphql context
 const context = async (req: any) => {
-  const ip_address = req.ip;
+  const ip_address = req?.req?.ip || null;
 
   return { ip_address };
 };
 
-app.use(
-  "/graphql",
-  graphqlHTTP((req: any) => ({
-    schema,
-    rootValue: resolvers,
-    graphiql: true,
-    context: () => context(req),
-    customFormatErrorFn: error => ({
-      message: error.message,
-      locations: error.locations,
-      stack: error.stack ? error.stack.split("\n") : [],
-      path: error.path
-    })
-  }))
-);
+// Set up Apollo Server
+const app = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context,
+  playground: true
+});
 
 export default app;

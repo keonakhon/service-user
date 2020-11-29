@@ -1,12 +1,10 @@
-import http from "http";
-import dotenv from "dotenv";
-dotenv.config();
-
 import app from "./app";
 
-const port = process.env.PORT || 3000;
-
-const server = http.createServer(app);
-console.log(`server started at http://localhost:${port}`);
-
-server.listen(port);
+const server = app;
+server.listen().then(() => {
+  console.log(`
+    Server is running!
+    Listening on port 4000
+    Query at https://studio.apollographql.com/dev
+  `);
+});

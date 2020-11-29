@@ -13,7 +13,8 @@ interface FacebookLogin {
 }
 
 // Facebook Login
-const fbLogin = async (
+const FbLogin = async (
+  _: any,
   { status, authResponse }: FacebookLogin,
   context: any
 ) => {
@@ -38,4 +39,4 @@ const fbLogin = async (
   }
 };
 
-export { fbLogin };
+export { FbLogin };

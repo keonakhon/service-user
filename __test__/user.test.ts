@@ -1,10 +1,10 @@
 /* Integration Testing - User Service */
-import supertest from "supertest";
+import { createTestClient } from "apollo-server-testing";
 
 import app from "../src/app";
 import { fbAccessTokenTestUser } from "./util/token";
 
-const request = supertest(app);
+const { query } = createTestClient(app);
 
 describe("Service Endpoint", () => {
   let fbAccessToken: string;
@@ -14,18 +14,14 @@ describe("Service Endpoint", () => {
   });
 
   test("login with facebook", async done => {
-    return await request
-      .post("/graphql")
-      .send({
-        query: `{ fbLogin( status: "connected", authResponse: { accessToken: "${fbAccessToken}", expiresIn: "2", signedRequest: "String", userID: "String" } ) { user_id, access_token, refresh_token } }`
-      })
-      .set("Accept", "application/json")
-      .expect("Content-Type", /json/)
-      .expect(200)
-      .then(res => {
-        expect(res.body).toBeInstanceOf(Object);
-        expect(res.body.data.fbLogin).toBeInstanceOf(Object);
-        return done();
-      });
+    const FbLogin = `{ FbLogin( status: "connected", authResponse: { accessToken: "${fbAccessToken}", expiresIn: "2", signedRequest: "String", userID: "String" } ) { user_id, access_token, refresh_token } }`;
+    const response = await query({ query: FbLogin });
+
+    // to remove [Object: null prototype] from each object
+    const responseString = JSON.parse(JSON.stringify(response));
+
+    expect(responseString).toBeInstanceOf(Object);
+    expect(responseString.data.FbLogin).toBeInstanceOf(Object);
+    return done();
   });
 });

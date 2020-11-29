@@ -87,7 +87,8 @@ class FacebookHelper {
         );
       }
     } catch (err) {
-      return new Error(err);
+      console.error(err);
+      throw new Error(err);
     }
   }
 
@@ -126,6 +127,7 @@ class FacebookHelper {
         refresh_token: refreshToken
       };
     } catch (err) {
+      console.error(err);
       throw new Error(err);
     }
   }
@@ -157,6 +159,7 @@ class FacebookHelper {
         ipAddress
       );
     } catch (err) {
+      console.error(err);
       throw new Error(err);
     }
   }
