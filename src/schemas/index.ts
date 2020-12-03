@@ -12,6 +12,7 @@ const typeDefs = gql`
     user_id: String
     access_token: String
     refresh_token: String
+    errors: [FbLoginError]
   }
 
   input authResponse {
@@ -21,9 +22,15 @@ const typeDefs = gql`
     userID: String
   }
 
-  type EmailIsRequired {
+  interface LoginError {
     message: String
   }
+
+  type EmailIsRequired implements LoginError {
+    message: String
+  }
+
+  union FbLoginError = EmailIsRequired
 `;
 
 export default typeDefs;

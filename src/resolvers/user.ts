@@ -19,7 +19,7 @@ const FbLogin = async (
   context: any
 ) => {
   try {
-    const { ip_address } = await context();
+    const ip_address = "::1";
 
     if (status === "connected") {
       const facebookClass = new FacebookHelper(
@@ -35,7 +35,7 @@ const FbLogin = async (
       return userData;
     }
   } catch (err) {
-    return new Error(err);
+    throw new Error(err);
   }
 };
 

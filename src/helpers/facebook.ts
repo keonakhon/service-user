@@ -64,7 +64,14 @@ class FacebookHelper {
           permission === "email" && status === "granted"
       );
       if (!fbEmailPermission) {
-        throw "Please allow us to get your email";
+        return {
+          errors: [
+            {
+              __typename: "EmailIsRequired",
+              message: "Please allow us to get your email"
+            }
+          ]
+        };
       }
 
       const fbUserID = fbData.id;
@@ -124,7 +131,8 @@ class FacebookHelper {
       return {
         user_id,
         access_token: accessToken,
-        refresh_token: refreshToken
+        refresh_token: refreshToken,
+        errors: []
       };
     } catch (err) {
       console.error(err);
