@@ -9,10 +9,14 @@ const typeDefs = gql`
   }
 
   type LoginWithFacebook {
+    user: UserResponse
+    errors: [FbLoginError]
+  }
+
+  type UserResponse {
     user_id: String
     access_token: String
     refresh_token: String
-    errors: [FbLoginError]
   }
 
   input authResponse {
