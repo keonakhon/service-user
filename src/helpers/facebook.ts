@@ -156,7 +156,7 @@ class FacebookHelper {
 
       const userObj = new UserModel({
         email,
-        facebook: { facebook_id },
+        facebook: { facebook_id, facebook_email: email },
         username: mockUsername
       });
 

@@ -21,6 +21,10 @@ const UserSchema: Schema = new Schema(
         },
         facebook_url: {
           type: String
+        },
+        facebook_email: {
+          type: String,
+          lowercase: true
         }
       },
       default: null
