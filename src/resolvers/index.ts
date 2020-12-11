@@ -16,7 +16,6 @@ interface FacebookLogin {
 
 const resolvers: IResolvers = {
   Query: {
-    Hello: () => "Hello world!",
     // Facebook Login
     FbLogin
   },

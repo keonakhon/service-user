@@ -1,7 +1,7 @@
+/* Query Schema - FbLogin */
 import { gql } from "apollo-server";
 
-// Construct a schema, using GraphQL schema language
-const userTypeDefs = gql`
+const fbLoginTypeDefs = gql`
   extend type Query {
     FbLogin(status: String!, authResponse: authResponse): LoginWithFacebook
   }
@@ -24,10 +24,6 @@ const userTypeDefs = gql`
     userID: String
   }
 
-  interface LoginError {
-    message: String
-  }
-
   type EmailIsRequired implements LoginError {
     message: String
   }
@@ -35,4 +31,4 @@ const userTypeDefs = gql`
   union FbLoginError = EmailIsRequired
 `;
 
-export default userTypeDefs;
+export default fbLoginTypeDefs;
