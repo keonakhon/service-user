@@ -12,20 +12,21 @@ DBConnection.Connect();
 
 // graphql schema
 import typeDefs from "./schemas/index";
+import fbLoginTypeDefs from "./schemas/fb_login";
 
 // graphql resolver
 import resolvers from "./resolvers/index";
 
 // graphql context
-const context = async (req: any) => {
-  const ip_address = req?.req?.ip || null;
+const context = async ({ req }: any) => {
+  const token = req?.headers?.authorization || "";
 
-  return { ip_address };
+  return { token };
 };
 
 // Set up Apollo Server
 const app = new ApolloServer({
-  typeDefs,
+  typeDefs: [typeDefs, fbLoginTypeDefs],
   resolvers,
   context,
   playground: true
