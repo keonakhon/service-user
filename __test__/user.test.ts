@@ -14,7 +14,22 @@ describe("Service Endpoint", () => {
   });
 
   test("login with facebook", async done => {
-    const FbLogin = `{ FbLogin( status: "connected", authResponse: { accessToken: "${fbAccessToken}", expiresIn: "2", signedRequest: "String", userID: "String" } ) { user_id, access_token, refresh_token } }`;
+    const FbLogin = `{ 
+      FbLogin(
+        status: "connected", 
+        authResponse: { accessToken: "${fbAccessToken}", 
+        expiresIn: "2", 
+        signedRequest: "String", 
+        userID: "String" } ) { 
+          user { user_id, access_token, refresh_token }, 
+          errors {
+            __typename
+            ... on LoginError {
+                message
+            }
+          }
+        } 
+      }`;
     const response = await query({ query: FbLogin });
 
     // to remove [Object: null prototype] from each object
