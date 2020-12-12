@@ -2,7 +2,7 @@
 import { IResolvers } from "apollo-server";
 
 // Resolvers
-import { FbLogin } from "./user";
+import { FbLogin } from "./query/login";
 
 interface FacebookLogin {
   status: string;

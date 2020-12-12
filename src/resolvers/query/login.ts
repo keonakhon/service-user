@@ -1,6 +1,6 @@
-/* User Resolver */
+/* Login Resolver */
 // Helpers
-import FacebookHelper from "../helpers/facebook";
+import FacebookHelper from "../../helpers/facebook";
 
 interface FacebookLogin {
   status: string;
