@@ -27,6 +27,7 @@ const resolvers: IResolvers = {
   FbLoginError: {
     __resolveType(obj: any) {
       if (obj.__typename === "EmailIsRequired") return "EmailIsRequired";
+      return "SomethingWrong";
     }
   },
   UserProfileError: {

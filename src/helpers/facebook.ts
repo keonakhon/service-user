@@ -94,7 +94,6 @@ class FacebookHelper {
         );
       }
     } catch (err) {
-      console.error(err);
       throw new Error(err);
     }
   }
@@ -137,7 +136,6 @@ class FacebookHelper {
         errors: []
       };
     } catch (err) {
-      console.error(err);
       throw new Error(err);
     }
   }
@@ -169,7 +167,6 @@ class FacebookHelper {
         ipAddress
       );
     } catch (err) {
-      console.error(err);
       throw new Error(err);
     }
   }

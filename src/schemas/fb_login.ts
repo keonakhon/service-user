@@ -28,7 +28,7 @@ const fbLoginTypeDefs = gql`
     message: String
   }
 
-  union FbLoginError = EmailIsRequired
+  union FbLoginError = EmailIsRequired | SomethingWrong
 `;
 
 export default fbLoginTypeDefs;

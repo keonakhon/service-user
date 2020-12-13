@@ -35,7 +35,16 @@ const FbLogin = async (
       return userData;
     }
   } catch (err) {
-    throw new Error(err);
+    {
+      return {
+        errors: [
+          {
+            __typename: "SomethingWrong",
+            message: "Something went wrong, Please try again"
+          }
+        ]
+      };
+    }
   }
 };
 
