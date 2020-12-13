@@ -3,7 +3,7 @@ import { IResolvers } from "apollo-server";
 
 // Resolvers
 import { FbLogin } from "./query/login";
-import { UserProfile } from "./query/user";
+import { MyProfile } from "./query/user";
 
 interface FacebookLogin {
   status: string;
@@ -19,7 +19,7 @@ const resolvers: IResolvers = {
   Query: {
     // Facebook Login
     FbLogin,
-    UserProfile
+    MyProfile
   },
   LoginError: {
     __resolveType() {

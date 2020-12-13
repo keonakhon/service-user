@@ -3,15 +3,15 @@ import { gql } from "apollo-server";
 
 const userTypeDefs = gql`
   extend type Query {
-    UserProfile: UserProfile
+    MyProfile: MyProfileType
   }
 
-  type UserProfile {
-    user: UserProfileResponse
+  type MyProfileType {
+    user: MyUserProfileResponseType
     errors: [UserProfileError!]!
   }
 
-  type UserProfileResponse {
+  type MyUserProfileResponseType {
     _id: String
     username: String
     add_username: Boolean
