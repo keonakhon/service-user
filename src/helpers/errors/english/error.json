@@ -1,0 +1,10 @@
+{
+  "SomethingWrong": {
+    "errors": [
+      {
+        "__typename": "SomethingWrong",
+        "message": "Something went wrong, Please try again"
+      }
+    ]
+  }
+}

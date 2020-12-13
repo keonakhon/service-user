@@ -1,6 +1,7 @@
 /* Login Resolver */
 // Helpers
 import FacebookHelper from "../../helpers/facebook";
+import * as ErrorHandler from "../../helpers/errors/english/error.json";
 
 interface FacebookLogin {
   status: string;
@@ -35,16 +36,7 @@ const FbLogin = async (
       return userData;
     }
   } catch (err) {
-    {
-      return {
-        errors: [
-          {
-            __typename: "SomethingWrong",
-            message: "Something went wrong, Please try again"
-          }
-        ]
-      };
-    }
+    return ErrorHandler.SomethingWrong;
   }
 };
 

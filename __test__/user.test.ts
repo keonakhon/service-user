@@ -25,7 +25,10 @@ describe("Service Endpoint", () => {
           errors {
             __typename
             ... on LoginError {
-                message
+              message
+            }
+            ... on ServerError {
+              message
             }
           }
         } 
@@ -36,7 +39,7 @@ describe("Service Endpoint", () => {
     const responseString = JSON.parse(JSON.stringify(response));
 
     expect(responseString).toBeInstanceOf(Object);
-    expect(responseString.data.FbLogin).toBeInstanceOf(Object);
+    expect(responseString.data.FbLogin.user).toBeInstanceOf(Object);
     return done();
   });
 });

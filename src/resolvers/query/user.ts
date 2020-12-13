@@ -1,5 +1,6 @@
 /* User Resolver */
 import AuthHelper from "../../helpers/auth";
+import * as ErrorHandler from "../../helpers/errors/english/error.json";
 
 // My User Profile
 const MyProfile = async (_: any, __: any, context: any) => {
@@ -42,14 +43,7 @@ const MyProfile = async (_: any, __: any, context: any) => {
       errors: []
     };
   } catch (err) {
-    return {
-      errors: [
-        {
-          __typename: "SomethingWrong",
-          message: "Something went wrong, Please try again"
-        }
-      ]
-    };
+    return ErrorHandler.SomethingWrong;
   }
 };
 
