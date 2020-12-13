@@ -5,6 +5,14 @@ import { gql } from "apollo-server";
 const typeDefs = gql`
   type Query
 
+  interface ServerError {
+    message: String
+  }
+
+  type SomethingWrong implements ServerError {
+    message: String
+  }
+
   interface LoginError {
     message: String
   }

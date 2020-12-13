@@ -41,7 +41,16 @@ const MyProfile = async (_: any, __: any, context: any) => {
       },
       errors: []
     };
-  } catch (err) {}
+  } catch (err) {
+    return {
+      errors: [
+        {
+          __typename: "SomethingWrong",
+          message: "Something went wrong, Please try again"
+        }
+      ]
+    };
+  }
 };
 
 export { MyProfile };

@@ -25,7 +25,7 @@ const userTypeDefs = gql`
     message: String
   }
 
-  union UserProfileError = Unauthentication
+  union UserProfileError = Unauthentication | SomethingWrong
 `;
 
 export default userTypeDefs;
