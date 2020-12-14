@@ -1,4 +1,4 @@
-/* User Resolver */
+/* Query - User Resolver */
 import AuthHelper from "../../helpers/auth";
 import * as ErrorHandler from "../../helpers/errors/english.json";
 

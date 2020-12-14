@@ -12,8 +12,8 @@ DBConnection.Connect();
 
 // graphql schema
 import typeDefs from "./schemas/index";
-import fbLoginTypeDefs from "./schemas/fb_login";
-import userTypeDefs from "./schemas/user";
+import fbLoginTypeDefs from "./schemas/query/fb_login";
+import userTypeDefs from "./schemas/query/user";
 
 // graphql resolver
 import resolvers from "./resolvers/index";

@@ -1,4 +1,4 @@
-/* Login Resolver */
+/* Query - Login Resolver */
 // Helpers
 import FacebookHelper from "../../helpers/facebook";
 import * as ErrorHandler from "../../helpers/errors/english.json";
