@@ -1,6 +1,6 @@
 /* User Resolver */
 import AuthHelper from "../../helpers/auth";
-import * as ErrorHandler from "../../helpers/errors/english/error.json";
+import * as ErrorHandler from "../../helpers/errors/english.json";
 
 // My User Profile
 const MyProfile = async (_: any, __: any, context: any) => {
@@ -8,14 +8,7 @@ const MyProfile = async (_: any, __: any, context: any) => {
     // Authentication User
     const userData = await AuthHelper(context);
     if (!userData) {
-      return {
-        errors: [
-          {
-            __typename: "Unauthentication",
-            message: "Invalid Token"
-          }
-        ]
-      };
+      return ErrorHandler.Unauthentication;
     }
 
     // User Data

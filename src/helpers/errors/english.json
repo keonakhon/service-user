@@ -6,5 +6,13 @@
         "message": "Something went wrong, Please try again"
       }
     ]
+  },
+  "Unauthentication": {
+    "errors": [
+      {
+        "__typename": "Unauthentication",
+        "message": "Invalid Token"
+      }
+    ]
   }
 }
