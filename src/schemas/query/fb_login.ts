@@ -1,9 +1,9 @@
-/* Query Schema - FbLogin */
+/* Query Schema - Facebook Login */
 import { gql } from "apollo-server";
 
 const fbLoginTypeDefs = gql`
   extend type Query {
-    FbLogin(status: String!, authResponse: authResponse): LoginWithFacebook
+    fbLogin(status: String!, authResponse: authResponse): LoginWithFacebook
   }
 
   type LoginWithFacebook {

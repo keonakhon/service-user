@@ -3,7 +3,7 @@ import { gql } from "apollo-server";
 
 const userTypeDefs = gql`
   extend type Query {
-    MyProfile: MyProfileType
+    myProfile: MyProfileType
   }
 
   type MyProfileType {

@@ -14,8 +14,8 @@ describe("Service Endpoint", () => {
   });
 
   test("login with facebook", async done => {
-    const FbLogin = `{ 
-      FbLogin(
+    const fbLogin = `{ 
+      fbLogin(
         status: "connected", 
         authResponse: { accessToken: "${fbAccessToken}", 
         expiresIn: "2", 
@@ -33,13 +33,13 @@ describe("Service Endpoint", () => {
           }
         } 
       }`;
-    const response = await query({ query: FbLogin });
+    const response = await query({ query: fbLogin });
 
     // to remove [Object: null prototype] from each object
     const responseString = JSON.parse(JSON.stringify(response));
 
     expect(responseString).toBeInstanceOf(Object);
-    expect(responseString.data.FbLogin.user).toBeInstanceOf(Object);
+    expect(responseString.data.fbLogin.user).toBeInstanceOf(Object);
     return done();
   });
 });

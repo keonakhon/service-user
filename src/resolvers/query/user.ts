@@ -3,7 +3,7 @@ import AuthHelper from "../../helpers/auth";
 import * as ErrorHandler from "../../helpers/errors/english.json";
 
 // My User Profile
-const MyProfile = async (_: any, __: any, context: any) => {
+const myProfile = async (_: any, __: any, context: any) => {
   try {
     // Authentication User
     const userData = await AuthHelper(context);
@@ -40,4 +40,4 @@ const MyProfile = async (_: any, __: any, context: any) => {
   }
 };
 
-export { MyProfile };
+export { myProfile };

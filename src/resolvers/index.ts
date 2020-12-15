@@ -2,16 +2,17 @@
 import { IResolvers } from "apollo-server";
 
 // Resolvers
-import { FbLogin } from "./query/login";
-import { MyProfile } from "./query/user";
+import { fbLogin } from "./query/login";
+import { myProfile } from "./query/user";
 
 // Main Resolver
 const resolvers: IResolvers = {
   /* Query */
   Query: {
-    FbLogin,
-    MyProfile
+    fbLogin,
+    myProfile
   },
+  /* Mutation */
   /* Interface */
   ServerError: {
     __resolveType() {
