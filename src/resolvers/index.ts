@@ -19,7 +19,7 @@ const resolvers: IResolvers = {
       return;
     }
   },
-  LoginError: {
+  Unauthentication: {
     __resolveType() {
       return;
     }
@@ -33,7 +33,7 @@ const resolvers: IResolvers = {
   },
   UserProfileError: {
     __resolveType(obj: any) {
-      if (obj.__typename === "Unauthentication") return "Unauthentication";
+      if (obj.__typename === "LoginError") return "LoginError";
       return "SomethingWrong";
     }
   }

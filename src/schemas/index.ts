@@ -5,6 +5,8 @@ import { gql } from "apollo-server";
 const typeDefs = gql`
   type Query
 
+  type Mutation
+
   interface ServerError {
     message: String
   }
@@ -13,7 +15,7 @@ const typeDefs = gql`
     message: String
   }
 
-  interface LoginError {
+  interface Unauthentication {
     message: String
   }
 `;

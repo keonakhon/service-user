@@ -21,11 +21,11 @@ const userTypeDefs = gql`
     gender: String
   }
 
-  type Unauthentication implements LoginError {
+  type LoginError implements Unauthentication {
     message: String
   }
 
-  union UserProfileError = Unauthentication | SomethingWrong
+  union UserProfileError = LoginError | SomethingWrong
 `;
 
 export default userTypeDefs;

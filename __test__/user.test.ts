@@ -24,7 +24,7 @@ describe("Service Endpoint", () => {
           user { user_id, access_token, refresh_token }, 
           errors {
             __typename
-            ... on LoginError {
+            ... on Unauthentication {
               message
             }
             ... on ServerError {

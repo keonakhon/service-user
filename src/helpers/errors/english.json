@@ -7,10 +7,10 @@
       }
     ]
   },
-  "Unauthentication": {
+  "LoginError": {
     "errors": [
       {
-        "__typename": "Unauthentication",
+        "__typename": "LoginError",
         "message": "Invalid Token"
       }
     ]

@@ -24,7 +24,7 @@ const fbLoginTypeDefs = gql`
     userID: String
   }
 
-  type EmailIsRequired implements LoginError {
+  type EmailIsRequired implements Unauthentication {
     message: String
   }
 
