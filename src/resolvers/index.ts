@@ -4,6 +4,7 @@ import { IResolvers } from "apollo-server";
 // Resolvers
 import { fbLogin } from "./query/login";
 import { myProfile } from "./query/user";
+import { updateMyProfile } from "./mutation/user";
 
 // Main Resolver
 const resolvers: IResolvers = {
@@ -13,6 +14,9 @@ const resolvers: IResolvers = {
     myProfile
   },
   /* Mutation */
+  Mutation: {
+    updateMyProfile
+  },
   /* Interface */
   ServerError: {
     __resolveType() {

@@ -14,6 +14,7 @@ DBConnection.Connect();
 import typeDefs from "./schemas/index";
 import fbLoginTypeDefs from "./schemas/query/fb_login";
 import userTypeDefs from "./schemas/query/user";
+import updateProfileTypeDefs from "./schemas/mutation/user";
 
 // graphql resolver
 import resolvers from "./resolvers/index";
@@ -27,7 +28,7 @@ const context = async ({ req }: any) => {
 
 // Set up Apollo Server
 const app = new ApolloServer({
-  typeDefs: [typeDefs, fbLoginTypeDefs, userTypeDefs],
+  typeDefs: [typeDefs, fbLoginTypeDefs, userTypeDefs, updateProfileTypeDefs],
   resolvers,
   context,
   playground: true
