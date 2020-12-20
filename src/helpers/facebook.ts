@@ -5,6 +5,9 @@ import axios from "axios";
 import UserModel from "../models/user";
 import UserTokenModel from "../models/user_token";
 
+// Helpers
+import * as ErrorHandler from "../helpers/errors/english.json";
+
 interface FacebookPermissionType {
   permission: string;
   status: string;
@@ -64,14 +67,7 @@ class FacebookHelper {
           permission === "email" && status === "granted"
       );
       if (!fbEmailPermission) {
-        return {
-          errors: [
-            {
-              __typename: "EmailIsRequired",
-              message: "Please allow us to get your email"
-            }
-          ]
-        };
+        return ErrorHandler.EmailIsRequired;
       }
 
       const fbUserID = fbData.id;

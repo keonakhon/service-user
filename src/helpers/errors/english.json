@@ -14,5 +14,13 @@
         "message": "Invalid Token"
       }
     ]
+  },
+  "EmailIsRequired": {
+    "errors": [
+      {
+        "__typename": "EmailIsRequired",
+        "message": "Please allow us to get your email"
+      }
+    ]
   }
 }
