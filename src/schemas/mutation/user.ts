@@ -7,18 +7,23 @@ const updateMyProfile = gql`
   }
 
   input inputProfileUpdate {
-    username: String
     display_name: String
-    email: String
     birthdate: String
     gender: String
   }
 
   type updateMyProfile {
-    errors: [UpdateUserError]
+    user: UpdateMyProfileSuccess
+    errors: [UpdateMyProfileErrorUnion]
   }
 
-  union UpdateUserError = SomethingWrong
+  type UpdateMyProfileSuccess {
+    display_name: String
+    birthdate: String
+    gender: String
+  }
+
+  union UpdateMyProfileErrorUnion = SomethingWrong
 `;
 
 export default updateMyProfile;

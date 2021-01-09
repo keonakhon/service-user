@@ -40,6 +40,11 @@ const resolvers: IResolvers = {
       if (obj.__typename === "LoginError") return "LoginError";
       return "SomethingWrong";
     }
+  },
+  UpdateMyProfileErrorUnion: {
+    __resolveType(obj: any) {
+      return "SomethingWrong";
+    }
   }
 };
 
