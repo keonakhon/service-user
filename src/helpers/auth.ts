@@ -32,4 +32,5 @@ const AuthHelper = (context: any) => {
     return false;
   }
 };
+
 export default AuthHelper;
