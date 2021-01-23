@@ -13,8 +13,34 @@ import * as ErrorHandler from "../src/helpers/errors/english.json";
 
 let query: any, mutate: any;
 
+// Header Data
+let accessToken: string;
+
+// Body Data
+const userProfile = `{
+  myProfile {
+    user {
+      _id,
+      username,
+      add_username,
+      display_name,
+      email,
+      birthdate,
+      gender
+    },
+    errors {
+      __typename
+      ... on Unauthentication {
+          message
+      },
+      ... on ServerError {
+          message
+      }
+    }
+  }    
+}`;
+
 describe("User", () => {
-  let accessToken: string;
   beforeAll(async () => {
     // Get Token by Login
     const funwarnToken = await shareLogin();
@@ -31,33 +57,30 @@ describe("User", () => {
   });
 
   test("Query User Profile", async done => {
-    const userProfile = `{
-      myProfile {
-        user {
-          _id,
-          username,
-          add_username,
-          display_name,
-          email,
-          birthdate,
-          gender
-        },
-        errors {
-          __typename
-          ... on Unauthentication {
-              message
-          },
-          ... on ServerError {
-              message
-          }
-        }
-      }    
-    }`;
     const response = await query({ query: userProfile });
 
     // to remove [Object: null prototype] from each object
     const responseString = JSON.parse(JSON.stringify(response));
     expect(responseString.data.myProfile.user).toBeInstanceOf(Object);
+    return done();
+  });
+
+  test("Query User Profile with fake Access Token", async done => {
+    // Pass req/header to context
+    const req = { headers: { authorization: `Bearer 12345678` } };
+    const context = await createContext({ req });
+
+    // Pass context to app
+    const server = createApp(context);
+    const mockQuery = createTestClient(server).query;
+
+    const response = await mockQuery({ query: userProfile });
+
+    // to remove [Object: null prototype] from each object
+    const responseString = JSON.parse(JSON.stringify(response));
+    expect(responseString.data.myProfile.errors).toMatchObject(
+      ErrorHandler.InvalidToken.errors
+    );
     return done();
   });
 });
