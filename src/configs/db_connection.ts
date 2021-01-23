@@ -13,7 +13,7 @@ class DBConnection {
 
   async Connect() {
     if (process.env.NODE_ENV === "test") {
-      uri = await mongod.getConnectionString();
+      uri = await mongod.getUri();
     }
 
     mongoose

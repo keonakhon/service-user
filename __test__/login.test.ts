@@ -1,13 +1,15 @@
-/* Integration Testing - User Service */
+/* Integration Testing - Login */
 import { createTestClient } from "apollo-server-testing";
 
-import app from "../src/app";
+import createApp from "../src/app";
 import { fbAccessTokenTestUser } from "./util/token";
 
 // Helpers
 import * as ErrorHandler from "../src/helpers/errors/english.json";
 
-const { query } = createTestClient(app);
+// Main App and Create Context
+const server = createApp(null);
+const { query } = createTestClient(server);
 
 describe("Login", () => {
   let fbTokenWithEmail: string;
