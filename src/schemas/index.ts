@@ -18,6 +18,10 @@ const typeDefs = gql`
   interface Unauthentication {
     message: String
   }
+
+  type InvalidToken implements Unauthentication {
+    message: String
+  }
 `;
 
 export default typeDefs;

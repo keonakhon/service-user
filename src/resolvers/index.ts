@@ -37,12 +37,13 @@ const resolvers: IResolvers = {
   },
   UserProfileError: {
     __resolveType(obj: any) {
-      if (obj.__typename === "LoginError") return "LoginError";
+      if (obj.__typename === "InvalidToken") return "InvalidToken";
       return "SomethingWrong";
     }
   },
   UpdateMyProfileErrorUnion: {
     __resolveType(obj: any) {
+      if (obj.__typename === "InvalidToken") return "InvalidToken";
       return "SomethingWrong";
     }
   }

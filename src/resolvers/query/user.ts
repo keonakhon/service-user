@@ -9,7 +9,7 @@ const myProfile = async (_: any, __: any, context: any) => {
     // Authentication User
     const userData = await AuthHelper(context);
     if (!userData) {
-      return ErrorHandler.LoginError;
+      return ErrorHandler.InvalidToken;
     }
 
     // User Data

@@ -32,7 +32,7 @@ const updateMyProfile = async (
     // Authentication User
     const userData = await AuthHelper(context);
     if (!userData) {
-      return ErrorHandler.LoginError;
+      return ErrorHandler.InvalidToken;
     }
 
     // User Data

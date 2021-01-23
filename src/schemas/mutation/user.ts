@@ -14,7 +14,7 @@ const updateMyProfile = gql`
 
   type updateMyProfile {
     user: UpdateMyProfileSuccess
-    errors: [UpdateMyProfileErrorUnion]
+    errors: [UpdateMyProfileErrorUnion!]!
   }
 
   type UpdateMyProfileSuccess {
@@ -23,7 +23,7 @@ const updateMyProfile = gql`
     gender: String
   }
 
-  union UpdateMyProfileErrorUnion = SomethingWrong
+  union UpdateMyProfileErrorUnion = InvalidToken | SomethingWrong
 `;
 
 export default updateMyProfile;

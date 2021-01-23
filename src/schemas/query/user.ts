@@ -21,11 +21,7 @@ const userTypeDefs = gql`
     gender: String
   }
 
-  type LoginError implements Unauthentication {
-    message: String
-  }
-
-  union UserProfileError = LoginError | SomethingWrong
+  union UserProfileError = InvalidToken | SomethingWrong
 `;
 
 export default userTypeDefs;
