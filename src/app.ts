@@ -19,19 +19,25 @@ import updateProfileTypeDefs from "./schemas/mutation/user";
 // graphql resolver
 import resolvers from "./resolvers/index";
 
-// graphql context
-const context = async ({ req }: any) => {
-  const token = req?.headers?.authorization || "";
+const createApp = (context: any) => {
+  try {
+    // Set up Apollo Server
+    const apolloServerApp = new ApolloServer({
+      typeDefs: [
+        typeDefs,
+        fbLoginTypeDefs,
+        userTypeDefs,
+        updateProfileTypeDefs
+      ],
+      resolvers,
+      context,
+      playground: true
+    });
 
-  return { token };
+    return apolloServerApp;
+  } catch (err) {
+    throw new Error(err);
+  }
 };
 
-// Set up Apollo Server
-const app = new ApolloServer({
-  typeDefs: [typeDefs, fbLoginTypeDefs, userTypeDefs, updateProfileTypeDefs],
-  resolvers,
-  context,
-  playground: true
-});
-
-export default app;
+export default createApp;

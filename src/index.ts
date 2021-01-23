@@ -1,7 +1,8 @@
-import app from "./app";
+import createApp from "./app";
+import createContext from "./context";
 
-const server = app;
-server.listen().then(() => {
+const server = createApp(createContext);
+server?.listen().then(() => {
   console.log(`
     Server is running!
     Listening on port 4000
