@@ -30,7 +30,25 @@ const UserSchema: Schema = new Schema(
       default: null
     },
     birthdate: { type: Date, default: null },
-    gender: { type: String, enum: ["male", "female", null], default: null },
+    gender: {
+      type: String,
+      enum: [
+        "Male",
+        "Female",
+        "Agender",
+        "Androgyne",
+        "Androgynous",
+        "Bigender",
+        "Cis",
+        "Cis Female",
+        "Cis Male",
+        "Cis Man",
+        "Cis Woman",
+        "Cisgender",
+        null
+      ],
+      default: null
+    },
     created_date: { type: Date, default: Date.now }
   },
   {
