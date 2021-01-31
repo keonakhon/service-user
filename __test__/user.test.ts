@@ -1,4 +1,5 @@
 /* Integration Testing - Login */
+import { gql } from "apollo-server";
 import { createTestClient } from "apollo-server-testing";
 
 // Main App and Create Context
@@ -17,7 +18,8 @@ let query: any, mutate: any;
 let accessToken: string;
 
 // Body Data
-const userProfile = `{
+const My_Profile = {
+  query: `{
   myProfile {
     user {
       _id,
@@ -38,7 +40,37 @@ const userProfile = `{
       }
     }
   }    
-}`;
+}`
+};
+const Update_My_Profile = {
+  mutation: gql`
+    mutation updateMyProfile($input: inputProfileUpdate) {
+      updateMyProfile(input: $input) {
+        user {
+          display_name
+          birthdate
+          gender
+        }
+        errors {
+          __typename
+          ... on Unauthentication {
+            message
+          }
+          ... on ServerError {
+            message
+          }
+        }
+      }
+    }
+  `,
+  variables: {
+    input: {
+      display_name: "Fname Lname",
+      birthdate: "",
+      gender: "Female"
+    }
+  }
+};
 
 describe("User", () => {
   beforeAll(async () => {
@@ -56,15 +88,6 @@ describe("User", () => {
     mutate = createTestClient(server).mutate;
   });
 
-  test("Query User Profile", async done => {
-    const response = await query({ query: userProfile });
-
-    // to remove [Object: null prototype] from each object
-    const responseString = JSON.parse(JSON.stringify(response));
-    expect(responseString.data.myProfile.user).toBeInstanceOf(Object);
-    return done();
-  });
-
   test("Query User Profile with fake Access Token", async done => {
     // Pass req/header to context
     const req = { headers: { authorization: `Bearer 12345678` } };
@@ -74,13 +97,56 @@ describe("User", () => {
     const server = createApp(context);
     const mockQuery = createTestClient(server).query;
 
-    const response = await mockQuery({ query: userProfile });
+    const response = await mockQuery({ query: My_Profile.query });
 
     // to remove [Object: null prototype] from each object
     const responseString = JSON.parse(JSON.stringify(response));
     expect(responseString.data.myProfile.errors).toMatchObject(
       ErrorHandler.InvalidToken.errors
     );
+    return done();
+  });
+
+  test("Query User Profile", async done => {
+    const response = await query({ query: My_Profile.query });
+
+    // to remove [Object: null prototype] from each object
+    const responseString = JSON.parse(JSON.stringify(response));
+    expect(responseString.data.myProfile.user).toBeInstanceOf(Object);
+    return done();
+  });
+
+  test("Mutation Update User Profile with fake Access Token", async done => {
+    // Pass req/header to context
+    const req = { headers: { authorization: `Bearer 12345678` } };
+    const context = await createContext({ req });
+
+    // Pass context to app
+    const server = createApp(context);
+    const mockMutation = createTestClient(server).mutate;
+
+    const response = await mockMutation({
+      mutation: Update_My_Profile.mutation,
+      variables: Update_My_Profile.variables
+    });
+
+    // to remove [Object: null prototype] from each object
+    const responseString = JSON.parse(JSON.stringify(response));
+    expect(responseString.data.updateMyProfile.errors).toMatchObject(
+      ErrorHandler.InvalidToken.errors
+    );
+    return done();
+  });
+
+  test("Mutation Update User Profile", async done => {
+    const response = await mutate({
+      mutation: Update_My_Profile.mutation,
+      variables: Update_My_Profile.variables
+    });
+
+    // to remove [Object: null prototype] from each object
+    const responseString = JSON.parse(JSON.stringify(response));
+    expect(responseString.data.updateMyProfile.user).toBeInstanceOf(Object);
     return done();
   });
 });
