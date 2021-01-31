@@ -18,6 +18,8 @@ const updateMyProfile = gql`
   }
 
   type UpdateMyProfileSuccess {
+    _id: String
+    user_id: String
     display_name: String
     birthdate: String
     gender: String

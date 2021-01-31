@@ -19,6 +19,7 @@ const userTypeDefs = gql`
     email: String
     birthdate: String
     gender: String
+    user_id: String
   }
 
   union UserProfileError = InvalidToken | SomethingWrong

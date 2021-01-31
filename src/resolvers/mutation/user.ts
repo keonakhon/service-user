@@ -62,6 +62,8 @@ const updateMyProfile = async (
 
     return {
       user: {
+        _id: userDataUpdated._id,
+        user_id: userDataUpdated.gen_id,
         display_name: userDataUpdated.display_name,
         birthdate: userDataUpdated.birthdate,
         gender: userDataUpdated.gender

@@ -49,6 +49,7 @@ const UserSchema: Schema = new Schema(
       ],
       default: null
     },
+    gen_id: { type: String, unique: true, lowercase: true },
     created_date: { type: Date, default: Date.now }
   },
   {

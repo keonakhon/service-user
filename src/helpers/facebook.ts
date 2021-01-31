@@ -151,7 +151,8 @@ class FacebookHelper {
       const userObj = new UserModel({
         email,
         facebook: { facebook_id, facebook_email: email },
-        username: mockUsername
+        username: mockUsername,
+        gen_id: mockUsername
       });
 
       const userData = await userObj.save();
