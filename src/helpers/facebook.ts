@@ -6,6 +6,7 @@ import UserModel from "../models/user";
 import UserTokenModel from "../models/user_token";
 
 // Helpers
+import * as GenerateIdHelper from "./generate_id";
 import * as ErrorHandler from "../helpers/errors/english.json";
 
 interface FacebookPermissionType {
@@ -146,7 +147,7 @@ class FacebookHelper {
   ) {
     try {
       // Create a unique username
-      const mockUsername = Date.now();
+      const mockUsername = await GenerateIdHelper.userGenId();
 
       const userObj = new UserModel({
         email,
