@@ -23,6 +23,7 @@ const My_Profile = {
   myProfile {
     user {
       _id,
+      user_id
       username,
       add_username,
       display_name,
@@ -47,6 +48,8 @@ const Update_My_Profile = {
     mutation updateMyProfile($input: inputProfileUpdate) {
       updateMyProfile(input: $input) {
         user {
+          _id
+          user_id
           display_name
           birthdate
           gender
