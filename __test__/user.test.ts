@@ -29,7 +29,8 @@ const My_Profile = {
       display_name,
       email,
       birthdate,
-      gender
+      gender,
+      bio
     },
     errors {
       __typename
@@ -43,6 +44,7 @@ const My_Profile = {
   }    
 }`
 };
+
 const Update_My_Profile = {
   mutation: gql`
     mutation updateMyProfile($input: inputProfileUpdate) {
@@ -53,6 +55,7 @@ const Update_My_Profile = {
           display_name
           birthdate
           gender
+          bio
         }
         errors {
           __typename
@@ -70,9 +73,34 @@ const Update_My_Profile = {
     input: {
       display_name: "Fname Lname",
       birthdate: "",
-      gender: "Female"
+      gender: "Female",
+      bio: ""
     }
   }
+};
+
+const User_Profile = {
+  query: gql`
+    query userProfile($username: String!) {
+      userProfile(username: $username) {
+        user {
+          username
+          display_name
+          bio
+        }
+        errors {
+          __typename
+          ... on Unauthentication {
+            message
+          }
+          ... on ServerError {
+            message
+          }
+        }
+      }
+    }
+  `,
+  variables: { username: "test" }
 };
 
 describe("User", () => {
@@ -150,6 +178,26 @@ describe("User", () => {
     // to remove [Object: null prototype] from each object
     const responseString = JSON.parse(JSON.stringify(response));
     expect(responseString.data.updateMyProfile.user).toBeInstanceOf(Object);
+    return done();
+  });
+
+  test("Query User Profile by their username", async done => {
+    // Pass req/header to context
+    const req = { headers: {} };
+    const context = await createContext({ req });
+
+    // Pass context to app
+    const server = createApp(context);
+    const mockQuery = createTestClient(server).query;
+
+    const response = await mockQuery({
+      query: User_Profile.query,
+      variables: User_Profile.variables
+    });
+
+    // to remove [Object: null prototype] from each object
+    const responseString = JSON.parse(JSON.stringify(response));
+    expect(responseString.data.userProfile.user).toBeInstanceOf(Object);
     return done();
   });
 });
