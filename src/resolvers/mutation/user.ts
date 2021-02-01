@@ -8,6 +8,7 @@ import * as ErrorHandler from "../../helpers/errors/english.json";
 
 interface InputInterface {
   input: {
+    username: string;
     display_name: string;
     birthdate: string;
     gender: string;
@@ -79,4 +80,49 @@ const updateMyProfile = async (
   }
 };
 
-export { updateMyProfile };
+// Update Username
+const updateUsername = async (
+  _: any,
+  { input }: InputInterface,
+  context: any
+) => {
+  try {
+    // Authentication User
+    const userData = await AuthHelper(context);
+    if (!userData) {
+      return ErrorHandler.InvalidToken;
+    }
+
+    // User Data
+    const { _id } = userData;
+
+    // Inputs
+    const { username } = input;
+
+    // Check if that username already exists or not
+    const usernameData = await UserModel.findOne({ username });
+    if (!usernameData) {
+      // Update User Data
+      const userDataUpdated: any = await UserModel.findOneAndUpdate(
+        { _id },
+        { $set: { username } },
+        { new: true }
+      );
+
+      return {
+        user: {
+          _id: userDataUpdated._id,
+          user_id: userDataUpdated.gen_id,
+          username: userDataUpdated.username
+        },
+        errors: []
+      };
+    } else {
+      return ErrorHandler.UsernameAlreadyExists;
+    }
+  } catch (err) {
+    return ErrorHandler.SomethingWrong;
+  }
+};
+
+export { updateMyProfile, updateUsername };

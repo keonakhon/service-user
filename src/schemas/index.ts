@@ -19,6 +19,10 @@ const typeDefs = gql`
     message: String
   }
 
+  interface DatabaseError {
+    message: String
+  }
+
   type InvalidToken implements Unauthentication {
     message: String
   }

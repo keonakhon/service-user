@@ -22,5 +22,13 @@
         "message": "Please allow us to get your email"
       }
     ]
+  },
+  "UsernameAlreadyExists": {
+    "errors": [
+      {
+        "__typename": "UsernameAlreadyExists",
+        "message": "This username already exists"
+      }
+    ]
   }
 }

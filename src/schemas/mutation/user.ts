@@ -4,6 +4,7 @@ import { gql } from "apollo-server";
 const updateMyProfile = gql`
   extend type Mutation {
     updateMyProfile(input: inputProfileUpdate): updateMyProfile
+    updateUsername(input: InputeUsernameUpdate): UpdateUserNameType
   }
 
   input inputProfileUpdate {
@@ -13,8 +14,17 @@ const updateMyProfile = gql`
     bio: String
   }
 
+  input InputeUsernameUpdate {
+    username: String!
+  }
+
   type updateMyProfile {
     user: UpdateMyProfileSuccess
+    errors: [UpdateMyProfileErrorUnion!]!
+  }
+
+  type UpdateUserNameType {
+    user: UpdateUsernameSuccess
     errors: [UpdateMyProfileErrorUnion!]!
   }
 
@@ -27,7 +37,20 @@ const updateMyProfile = gql`
     bio: String
   }
 
-  union UpdateMyProfileErrorUnion = InvalidToken | SomethingWrong
+  type UpdateUsernameSuccess {
+    _id: String
+    user_id: String
+    username: String
+  }
+
+  type UsernameAlreadyExists implements DatabaseError {
+    message: String
+  }
+
+  union UpdateMyProfileErrorUnion =
+      InvalidToken
+    | SomethingWrong
+    | UsernameAlreadyExists
 `;
 
 export default updateMyProfile;
