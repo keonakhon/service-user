@@ -26,11 +26,13 @@ const userTypeDefs = gql`
     birthdate: String
     gender: String
     user_id: String
+    bio: String
   }
 
   type UserProfileResponseType {
     username: String
     display_name: String
+    bio: String
   }
 
   union UserProfileError = InvalidToken | SomethingWrong

@@ -8,11 +8,10 @@ import * as ErrorHandler from "../../helpers/errors/english.json";
 
 interface InputInterface {
   input: {
-    username: string;
     display_name: string;
-    email: string;
     birthdate: string;
     gender: string;
+    bio: string;
   };
 }
 
@@ -20,6 +19,7 @@ interface BodyDataInterface {
   display_name?: string;
   birthdate?: string;
   gender?: string;
+  bio?: string;
 }
 
 // Update User Profile
@@ -39,7 +39,7 @@ const updateMyProfile = async (
     const { _id } = userData;
 
     // Inputs
-    const { display_name, birthdate, gender } = input;
+    const { display_name, birthdate, gender, bio } = input;
 
     // Update specified data
     let bodyData: BodyDataInterface = {};
@@ -51,6 +51,9 @@ const updateMyProfile = async (
     }
     if (gender) {
       bodyData.gender = gender;
+    }
+    if (bio) {
+      bodyData.bio = bio;
     }
 
     // Update User Data
@@ -66,7 +69,8 @@ const updateMyProfile = async (
         user_id: userDataUpdated.gen_id,
         display_name: userDataUpdated.display_name,
         birthdate: userDataUpdated.birthdate,
-        gender: userDataUpdated.gender
+        gender: userDataUpdated.gender,
+        bio: userDataUpdated.bio
       },
       errors: []
     };

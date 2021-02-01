@@ -29,6 +29,7 @@ const myProfile = async (_: any, __: any, context: any) => {
       gender,
       email,
       username,
+      bio,
       gen_id
     } = userData;
 
@@ -41,6 +42,7 @@ const myProfile = async (_: any, __: any, context: any) => {
         email,
         birthdate,
         gender,
+        bio,
         user_id: gen_id
       },
       errors: []
@@ -59,7 +61,8 @@ const userProfile = async (_: any, { username }: Username, context: any) => {
       return {
         user: {
           username: userData.username,
-          display_name: userData.display_name
+          display_name: userData.display_name,
+          bio: userData.bio
         },
         errors: []
       };

@@ -10,6 +10,7 @@ const updateMyProfile = gql`
     display_name: String
     birthdate: String
     gender: String
+    bio: String
   }
 
   type updateMyProfile {
@@ -23,6 +24,7 @@ const updateMyProfile = gql`
     display_name: String
     birthdate: String
     gender: String
+    bio: String
   }
 
   union UpdateMyProfileErrorUnion = InvalidToken | SomethingWrong

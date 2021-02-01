@@ -9,6 +9,7 @@ const UserSchema: Schema = new Schema(
     username: { type: String, unique: true, lowercase: true },
     add_username: { type: Boolean, default: false },
     display_name: { type: String, default: null },
+    bio: { type: String, default: null },
     email: { type: String, unique: true, lowercase: true },
     password: { type: String, default: null },
     banned_id: { type: String, default: null },
