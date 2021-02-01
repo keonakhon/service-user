@@ -12,7 +12,7 @@ import shareLogin from "./util/login";
 // Helpers
 import * as ErrorHandler from "../src/helpers/errors/english.json";
 
-let query: any, mutate: any;
+let queryWithRealToken: any, mutateWithRealToken: any;
 
 // Header Data
 let accessToken: string;
@@ -141,13 +141,15 @@ describe("User", () => {
     accessToken = funwarnToken.data.fbLogin.user.access_token;
 
     // Pass req/header to context
-    const req = { headers: { authorization: `Bearer ${accessToken}` } };
-    const context = await createContext({ req });
+    const reqWithRealToken = {
+      headers: { authorization: `Bearer ${accessToken}` }
+    };
+    const contextWithRealToken = await createContext({ req: reqWithRealToken });
 
     // Pass context to app
-    const server = createApp(context);
-    query = createTestClient(server).query;
-    mutate = createTestClient(server).mutate;
+    const serverWithRealToken = createApp(contextWithRealToken);
+    queryWithRealToken = createTestClient(serverWithRealToken).query;
+    mutateWithRealToken = createTestClient(serverWithRealToken).mutate;
   });
 
   test("Query User Profile with fake Access Token", async done => {
@@ -170,7 +172,7 @@ describe("User", () => {
   });
 
   test("Query User Profile", async done => {
-    const response = await query({ query: My_Profile.query });
+    const response = await queryWithRealToken({ query: My_Profile.query });
 
     // to remove [Object: null prototype] from each object
     const responseString = JSON.parse(JSON.stringify(response));
@@ -201,7 +203,7 @@ describe("User", () => {
   });
 
   test("Mutation Update User Profile", async done => {
-    const response = await mutate({
+    const response = await mutateWithRealToken({
       mutation: Update_My_Profile.mutation,
       variables: Update_My_Profile.variables
     });
@@ -255,7 +257,7 @@ describe("User", () => {
   });
 
   test("Mutation Update Username", async done => {
-    const response = await mutate({
+    const response = await mutateWithRealToken({
       mutation: Update_Username.mutation,
       variables: Update_Username.variables
     });
