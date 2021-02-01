@@ -4,10 +4,16 @@ import { gql } from "apollo-server";
 const userTypeDefs = gql`
   extend type Query {
     myProfile: MyProfileType
+    userProfile(username: String!): UserProfileType
   }
 
   type MyProfileType {
     user: MyUserProfileResponseType
+    errors: [UserProfileError!]!
+  }
+
+  type UserProfileType {
+    user: UserProfileResponseType
     errors: [UserProfileError!]!
   }
 
@@ -20,6 +26,11 @@ const userTypeDefs = gql`
     birthdate: String
     gender: String
     user_id: String
+  }
+
+  type UserProfileResponseType {
+    username: String
+    display_name: String
   }
 
   union UserProfileError = InvalidToken | SomethingWrong
