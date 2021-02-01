@@ -12,7 +12,10 @@ import shareLogin from "./util/login";
 // Helpers
 import * as ErrorHandler from "../src/helpers/errors/english.json";
 
-let queryWithRealToken: any, mutateWithRealToken: any;
+let queryWithRealToken: any,
+  mutateWithRealToken: any,
+  queryWithFakeToken: any,
+  mutateWithFakeToken: any;
 
 // Header Data
 let accessToken: string;
@@ -140,28 +143,29 @@ describe("User", () => {
     const funwarnToken = await shareLogin();
     accessToken = funwarnToken.data.fbLogin.user.access_token;
 
-    // Pass req/header to context
+    // Pass req/header to context, Real Token
     const reqWithRealToken = {
       headers: { authorization: `Bearer ${accessToken}` }
     };
     const contextWithRealToken = await createContext({ req: reqWithRealToken });
+    // Pass req/header to context, Fake Token
+    const reqWithFakeToken = {
+      headers: { authorization: `Bearer 12345678` }
+    };
+    const contextWithFakeToken = await createContext({ req: reqWithFakeToken });
 
-    // Pass context to app
+    // Pass context to app, Real Token
     const serverWithRealToken = createApp(contextWithRealToken);
     queryWithRealToken = createTestClient(serverWithRealToken).query;
     mutateWithRealToken = createTestClient(serverWithRealToken).mutate;
+    // Pass context to app, Fake Token
+    const serverWithFakeToken = createApp(contextWithFakeToken);
+    queryWithFakeToken = createTestClient(serverWithFakeToken).query;
+    mutateWithFakeToken = createTestClient(serverWithFakeToken).mutate;
   });
 
   test("Query User Profile with fake Access Token", async done => {
-    // Pass req/header to context
-    const req = { headers: { authorization: `Bearer 12345678` } };
-    const context = await createContext({ req });
-
-    // Pass context to app
-    const server = createApp(context);
-    const mockQuery = createTestClient(server).query;
-
-    const response = await mockQuery({ query: My_Profile.query });
+    const response = await queryWithFakeToken({ query: My_Profile.query });
 
     // to remove [Object: null prototype] from each object
     const responseString = JSON.parse(JSON.stringify(response));
@@ -181,15 +185,7 @@ describe("User", () => {
   });
 
   test("Mutation Update User Profile with fake Access Token", async done => {
-    // Pass req/header to context
-    const req = { headers: { authorization: `Bearer 12345678` } };
-    const context = await createContext({ req });
-
-    // Pass context to app
-    const server = createApp(context);
-    const mockMutation = createTestClient(server).mutate;
-
-    const response = await mockMutation({
+    const response = await mutateWithFakeToken({
       mutation: Update_My_Profile.mutation,
       variables: Update_My_Profile.variables
     });
@@ -215,15 +211,7 @@ describe("User", () => {
   });
 
   test("Query User Profile by username that not exists", async done => {
-    // Pass req/header to context
-    const req = { headers: {} };
-    const context = await createContext({ req });
-
-    // Pass context to app
-    const server = createApp(context);
-    const mockQuery = createTestClient(server).query;
-
-    const response = await mockQuery({
+    const response = await queryWithFakeToken({
       query: User_Profile.query,
       variables: User_Profile.variables
     });
@@ -235,15 +223,7 @@ describe("User", () => {
   });
 
   test("Mutation Update Username with fake Access Token", async done => {
-    // Pass req/header to context
-    const req = { headers: { authorization: `Bearer 12345678` } };
-    const context = await createContext({ req });
-
-    // Pass context to app
-    const server = createApp(context);
-    const mockMutation = createTestClient(server).mutate;
-
-    const response = await mockMutation({
+    const response = await mutateWithFakeToken({
       mutation: Update_Username.mutation,
       variables: Update_Username.variables
     });
@@ -269,15 +249,7 @@ describe("User", () => {
   });
 
   test("Query User Profile by Username", async done => {
-    // Pass req/header to context
-    const req = { headers: {} };
-    const context = await createContext({ req });
-
-    // Pass context to app
-    const server = createApp(context);
-    const mockQuery = createTestClient(server).query;
-
-    const response = await mockQuery({
+    const response = await queryWithFakeToken({
       query: User_Profile.query,
       variables: User_Profile.variables
     });
