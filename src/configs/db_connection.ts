@@ -2,9 +2,10 @@
 import mongoose from "mongoose";
 import { MongoMemoryServer } from "mongodb-memory-server";
 
-import keys from "./keys";
+import ConfigKey from "./keys";
 
-let uri = keys.uri;
+let fwURI = ConfigKey.fw_user_uri;
+let dbName = ConfigKey.fw_user_db_name;
 
 const mongod = new MongoMemoryServer();
 
@@ -13,11 +14,12 @@ class DBConnection {
 
   async Connect() {
     if (process.env.NODE_ENV === "test") {
-      uri = await mongod.getUri();
+      fwURI = await mongod.getUri();
     }
 
     mongoose
-      .connect(uri, {
+      .connect(fwURI, {
+        dbName,
         useCreateIndex: true,
         useNewUrlParser: true,
         useUnifiedTopology: true,
