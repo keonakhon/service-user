@@ -2,7 +2,7 @@
 import { Schema, model } from "mongoose";
 import jwt from "jsonwebtoken";
 
-import config from "../configs/keys";
+import config from "../configs/config";
 
 const UserSchema: Schema = new Schema(
   {

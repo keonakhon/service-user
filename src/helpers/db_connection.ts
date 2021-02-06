@@ -2,7 +2,7 @@
 import mongoose from "mongoose";
 import { MongoMemoryServer } from "mongodb-memory-server";
 
-import ConfigKey from "../configs/keys";
+import ConfigKey from "../configs/config";
 
 let fwURI = ConfigKey.fw_user_uri;
 let dbName = ConfigKey.fw_user_db_name;

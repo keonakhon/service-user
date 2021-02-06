@@ -2,7 +2,7 @@
 import jwt from "jsonwebtoken";
 
 // Configs
-import keys from "../configs/keys";
+import ConfigKey from "../configs/config";
 
 // Models
 import UserModel from "../models/user";
@@ -16,7 +16,7 @@ const AuthHelper = async (context: any) => {
 
       return await jwt.verify(
         accessToken,
-        keys.access_token_secret,
+        ConfigKey.access_token_secret,
         async (err: any, decoded: any) => {
           if (err) return false;
 
