@@ -5,7 +5,7 @@ import { ApolloServer } from "apollo-server";
 dotenv.config();
 
 // DB Connection Class
-import DBConnection from "./configs/db_connection";
+import DBConnection from "./helpers/db_connection";
 
 // Connect DB
 DBConnection.Connect();
