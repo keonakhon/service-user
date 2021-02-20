@@ -24,6 +24,7 @@ let accessToken: string;
 const My_Profile = {
   query: `{
   myProfile {
+    success
     user {
       _id,
       user_id
@@ -52,6 +53,7 @@ const Update_My_Profile = {
   mutation: gql`
     mutation updateMyProfile($input: inputProfileUpdate) {
       updateMyProfile(input: $input) {
+        success
         user {
           _id
           user_id
@@ -86,6 +88,7 @@ const Update_Username = {
   mutation: gql`
     mutation updateUsername($input: InputeUsernameUpdate) {
       updateUsername(input: $input) {
+        success
         user {
           _id
           user_id
@@ -117,6 +120,7 @@ const User_Profile = {
   query: gql`
     query userProfile($username: String!) {
       userProfile(username: $username) {
+        success
         user {
           username
           display_name
@@ -169,6 +173,7 @@ describe("User", () => {
 
     // to remove [Object: null prototype] from each object
     const responseString = JSON.parse(JSON.stringify(response));
+    expect(responseString.data.myProfile.success).toBe(false);
     expect(responseString.data.myProfile.errors).toMatchObject(
       ErrorHandler.InvalidToken.errors
     );
@@ -180,6 +185,7 @@ describe("User", () => {
 
     // to remove [Object: null prototype] from each object
     const responseString = JSON.parse(JSON.stringify(response));
+    expect(responseString.data.myProfile.success).toBe(true);
     expect(responseString.data.myProfile.user).toBeInstanceOf(Object);
     return done();
   });
@@ -192,6 +198,7 @@ describe("User", () => {
 
     // to remove [Object: null prototype] from each object
     const responseString = JSON.parse(JSON.stringify(response));
+    expect(responseString.data.updateMyProfile.success).toBe(false);
     expect(responseString.data.updateMyProfile.errors).toMatchObject(
       ErrorHandler.InvalidToken.errors
     );
@@ -206,6 +213,7 @@ describe("User", () => {
 
     // to remove [Object: null prototype] from each object
     const responseString = JSON.parse(JSON.stringify(response));
+    expect(responseString.data.updateMyProfile.success).toBe(true);
     expect(responseString.data.updateMyProfile.user).toBeInstanceOf(Object);
     return done();
   });
@@ -218,6 +226,7 @@ describe("User", () => {
 
     // to remove [Object: null prototype] from each object
     const responseString = JSON.parse(JSON.stringify(response));
+    expect(responseString.data.userProfile.success).toBe(true);
     expect(responseString.data.userProfile.user).toBeNull();
     return done();
   });
@@ -230,6 +239,7 @@ describe("User", () => {
 
     // to remove [Object: null prototype] from each object
     const responseString = JSON.parse(JSON.stringify(response));
+    expect(responseString.data.updateUsername.success).toBe(false);
     expect(responseString.data.updateUsername.errors).toMatchObject(
       ErrorHandler.InvalidToken.errors
     );
@@ -244,6 +254,7 @@ describe("User", () => {
 
     // to remove [Object: null prototype] from each object
     const responseString = JSON.parse(JSON.stringify(response));
+    expect(responseString.data.updateUsername.success).toBe(true);
     expect(responseString.data.updateUsername.user).toBeInstanceOf(Object);
     return done();
   });
@@ -256,6 +267,7 @@ describe("User", () => {
 
     // to remove [Object: null prototype] from each object
     const responseString = JSON.parse(JSON.stringify(response));
+    expect(responseString.data.userProfile.success).toBe(true);
     expect(responseString.data.userProfile.user).toBeInstanceOf(Object);
     return done();
   });

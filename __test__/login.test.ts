@@ -29,6 +29,7 @@ describe("Login", () => {
         expiresIn: "2", 
         signedRequest: "String", 
         userID: "String" } ) { 
+          success
           user { user_id, access_token, refresh_token }, 
           errors {
             __typename
@@ -47,6 +48,7 @@ describe("Login", () => {
     const responseString = JSON.parse(JSON.stringify(response));
 
     expect(responseString).toBeInstanceOf(Object);
+    expect(responseString.data.fbLogin.success).toBe(true);
     expect(responseString.data.fbLogin.user).toBeInstanceOf(Object);
     return done();
   });
@@ -59,6 +61,7 @@ describe("Login", () => {
         expiresIn: "2", 
         signedRequest: "String", 
         userID: "String" } ) { 
+          success
           user { user_id, access_token, refresh_token }, 
           errors {
             __typename
@@ -75,6 +78,7 @@ describe("Login", () => {
 
     // to remove [Object: null prototype] from each object
     const responseString = JSON.parse(JSON.stringify(response));
+    expect(responseString.data.fbLogin.success).toBe(false);
     expect(responseString.data.fbLogin.errors).toMatchObject(
       ErrorHandler.EmailIsRequired.errors
     );
@@ -89,6 +93,7 @@ describe("Login", () => {
         expiresIn: "2", 
         signedRequest: "String", 
         userID: "String" } ) { 
+          success
           user { user_id, access_token, refresh_token }, 
           errors {
             __typename
@@ -105,6 +110,7 @@ describe("Login", () => {
 
     // to remove [Object: null prototype] from each object
     const responseString = JSON.parse(JSON.stringify(response));
+    expect(responseString.data.fbLogin.success).toBe(false);
     expect(responseString.data.fbLogin.errors).toMatchObject(
       ErrorHandler.SomethingWrong.errors
     );
