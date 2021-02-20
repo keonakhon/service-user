@@ -8,11 +8,13 @@ const userTypeDefs = gql`
   }
 
   type MyProfileType {
+    success: Boolean!
     user: MyUserProfileResponseType
     errors: [UserProfileError!]!
   }
 
   type UserProfileType {
+    success: Boolean!
     user: UserProfileResponseType
     errors: [UserProfileError!]!
   }

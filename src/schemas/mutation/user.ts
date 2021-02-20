@@ -19,11 +19,13 @@ const updateMyProfile = gql`
   }
 
   type updateMyProfile {
+    success: Boolean!
     user: UpdateMyProfileSuccess
     errors: [UpdateMyProfileErrorUnion!]!
   }
 
   type UpdateUserNameType {
+    success: Boolean!
     user: UpdateUsernameSuccess
     errors: [UpdateMyProfileErrorUnion!]!
   }

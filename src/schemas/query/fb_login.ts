@@ -7,6 +7,7 @@ const fbLoginTypeDefs = gql`
   }
 
   type LoginWithFacebook {
+    success: Boolean!
     user: UserResponse
     errors: [FbLoginError]
   }
