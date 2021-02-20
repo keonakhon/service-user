@@ -1,5 +1,6 @@
 {
   "SomethingWrong": {
+    "success": false,
     "errors": [
       {
         "__typename": "SomethingWrong",
@@ -8,6 +9,7 @@
     ]
   },
   "InvalidToken": {
+    "success": false,
     "errors": [
       {
         "__typename": "InvalidToken",
@@ -16,6 +18,7 @@
     ]
   },
   "EmailIsRequired": {
+    "success": false,
     "errors": [
       {
         "__typename": "EmailIsRequired",
@@ -24,6 +27,7 @@
     ]
   },
   "UsernameAlreadyExists": {
+    "success": false,
     "errors": [
       {
         "__typename": "UsernameAlreadyExists",

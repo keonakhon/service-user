@@ -125,6 +125,7 @@ class FacebookHelper {
       await userTokenObj.save();
 
       return {
+        success: true,
         user: {
           user_id,
           access_token: accessToken,

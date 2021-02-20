@@ -34,6 +34,7 @@ const myProfile = async (_: any, __: any, context: any) => {
     } = userData;
 
     return {
+      success: true,
       user: {
         _id,
         username,
@@ -59,6 +60,7 @@ const userProfile = async (_: any, { username }: Username, context: any) => {
 
     if (userData) {
       return {
+        success: true,
         user: {
           username: userData.username,
           display_name: userData.display_name,
@@ -67,7 +69,7 @@ const userProfile = async (_: any, { username }: Username, context: any) => {
         errors: []
       };
     } else {
-      return { user: null, errors: [] };
+      return { success: true, user: null, errors: [] };
     }
   } catch (err) {
     return ErrorHandler.SomethingWrong;

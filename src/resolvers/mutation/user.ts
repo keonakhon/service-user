@@ -65,6 +65,7 @@ const updateMyProfile = async (
     );
 
     return {
+      success: true,
       user: {
         _id: userDataUpdated._id,
         user_id: userDataUpdated.gen_id,
@@ -110,6 +111,7 @@ const updateUsername = async (
       );
 
       return {
+        success: true,
         user: {
           _id: userDataUpdated._id,
           user_id: userDataUpdated.gen_id,
