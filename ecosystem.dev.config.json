@@ -1,9 +1,11 @@
 {
-  "apps" : [{
-    "name": "service-user:dev",
-    "script": "./dist/index.js",
-    "env": {
-      "NODE_ENV": "development"
+  "apps": [
+    {
+      "name": "service-user:dev",
+      "script": "./dist/index.js",
+      "env": {
+        "NODE_ENV": "development"
+      }
     }
-  }]
+  ]
 }
