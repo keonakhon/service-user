@@ -33,21 +33,7 @@ const UserSchema: Schema = new Schema(
     birthdate: { type: Date, default: null },
     gender: {
       type: String,
-      enum: [
-        "Male",
-        "Female",
-        "Agender",
-        "Androgyne",
-        "Androgynous",
-        "Bigender",
-        "Cis",
-        "Cis Female",
-        "Cis Male",
-        "Cis Man",
-        "Cis Woman",
-        "Cisgender",
-        null
-      ],
+      maxLength: 30,
       default: null
     },
     gen_id: { type: String, unique: true, lowercase: true },
