@@ -16,6 +16,7 @@ const fbLoginTypeDefs = gql`
     user_id: String
     access_token: String
     refresh_token: String
+    display_name: String
   }
 
   input authResponse {

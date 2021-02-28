@@ -129,7 +129,8 @@ class FacebookHelper {
         user: {
           user_id,
           access_token: accessToken,
-          refresh_token: refreshToken
+          refresh_token: refreshToken,
+          display_name: userData.display_name
         },
         errors: []
       };
