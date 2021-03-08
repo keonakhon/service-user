@@ -44,13 +44,18 @@ const UserSchema: Schema = new Schema(
   }
 );
 
+const dateFormat = new Date();
 // Custom method for generate access token
 UserSchema.methods.accessToken = function (id: string) {
   const token = jwt.sign({ _id: id }, config.access_token_secret, {
     expiresIn: config.access_token_life
   });
 
-  return token;
+  const accessTokenExpiresIn = dateFormat.setSeconds(
+    dateFormat.getSeconds() + config.access_token_life
+  );
+
+  return { accessToken: token, accessTokenExpiresIn };
 };
 
 // Custom method for generate refresh token
@@ -59,7 +64,11 @@ UserSchema.methods.refreshToken = function (id: string) {
     expiresIn: config.refresh_token_life
   });
 
-  return token;
+  const refreshTokenExpiresIn = dateFormat.setSeconds(
+    dateFormat.getSeconds() + config.refresh_token_life
+  );
+
+  return { refreshToken: token, refreshTokenExpiresIn };
 };
 
 const UserModel = model("fw_user", UserSchema);

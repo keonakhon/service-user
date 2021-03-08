@@ -103,8 +103,12 @@ class FacebookHelper {
     ipAddress: string
   ) {
     try {
-      const accessToken = userData.accessToken(userData._id);
-      const refreshToken = userData.refreshToken(userData._id);
+      const { accessToken, accessTokenExpiresIn } = userData.accessToken(
+        userData._id
+      );
+      const { refreshToken, refreshTokenExpiresIn } = userData.refreshToken(
+        userData._id
+      );
       const user_id = userData._id;
 
       // Save Token
@@ -128,8 +132,14 @@ class FacebookHelper {
         success: true,
         user: {
           user_id,
-          access_token: accessToken,
-          refresh_token: refreshToken,
+          access_token: {
+            token: accessToken,
+            expires_in: accessTokenExpiresIn
+          },
+          refresh_token: {
+            token: refreshToken,
+            expires_in: refreshTokenExpiresIn
+          },
           display_name: userData.display_name
         },
         errors: []
