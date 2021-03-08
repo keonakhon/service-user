@@ -26,7 +26,12 @@ const shareLogin = async () => {
       signedRequest: "String", 
       userID: "String" } ) { 
         success
-        user { user_id, access_token, refresh_token, display_name }, 
+        user {
+          user_id,
+          access_token { token, expires_in},
+          refresh_token { token, expires_in},
+          display_name
+        }, 
         errors {
           __typename
           ... on Unauthentication {

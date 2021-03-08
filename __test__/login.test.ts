@@ -11,6 +11,35 @@ import * as ErrorHandler from "../src/helpers/errors/english.json";
 const server = createApp(null);
 const { query } = createTestClient(server);
 
+// Request Data for Login
+const fbLoginRequestPayload = (fbToken: string) => {
+  return `{ 
+    fbLogin(
+      status: "connected", 
+      authResponse: { accessToken: "${fbToken}", 
+      expiresIn: "2", 
+      signedRequest: "String", 
+      userID: "String" } ) { 
+        success
+        user {
+          user_id,
+          access_token { token, expires_in},
+          refresh_token { token, expires_in},
+          display_name
+        }, 
+        errors {
+          __typename
+          ... on Unauthentication {
+            message
+          }
+          ... on ServerError {
+            message
+          }
+        }
+      } 
+    }`;
+};
+
 describe("Login", () => {
   let fbTokenWithEmail: string;
   let fbTokenWithoutEmail: string;
@@ -22,26 +51,7 @@ describe("Login", () => {
   });
 
   test("login with facebook, must pass", async done => {
-    const fbLogin = `{ 
-      fbLogin(
-        status: "connected", 
-        authResponse: { accessToken: "${fbTokenWithEmail}", 
-        expiresIn: "2", 
-        signedRequest: "String", 
-        userID: "String" } ) { 
-          success
-          user { user_id, access_token, refresh_token, display_name }, 
-          errors {
-            __typename
-            ... on Unauthentication {
-              message
-            }
-            ... on ServerError {
-              message
-            }
-          }
-        } 
-      }`;
+    const fbLogin = fbLoginRequestPayload(fbTokenWithEmail);
     const response = await query({ query: fbLogin });
 
     // to remove [Object: null prototype] from each object
@@ -54,26 +64,7 @@ describe("Login", () => {
   });
 
   test("login with facebook by not provide email, must not pass", async done => {
-    const fbLogin = `{ 
-      fbLogin(
-        status: "connected", 
-        authResponse: { accessToken: "${fbTokenWithoutEmail}", 
-        expiresIn: "2", 
-        signedRequest: "String", 
-        userID: "String" } ) { 
-          success
-          user { user_id, access_token, refresh_token, display_name }, 
-          errors {
-            __typename
-            ... on Unauthentication {
-              message
-            }
-            ... on ServerError {
-              message
-            }
-          }
-        } 
-      }`;
+    const fbLogin = fbLoginRequestPayload(fbTokenWithoutEmail);
     const response = await query({ query: fbLogin });
 
     // to remove [Object: null prototype] from each object
@@ -86,26 +77,7 @@ describe("Login", () => {
   });
 
   test("login with facebook by provide fake facebook's access token, must not pass", async done => {
-    const fbLogin = `{ 
-      fbLogin(
-        status: "connected", 
-        authResponse: { accessToken: ".${fbTokenWithEmail}", 
-        expiresIn: "2", 
-        signedRequest: "String", 
-        userID: "String" } ) { 
-          success
-          user { user_id, access_token, refresh_token, display_name }, 
-          errors {
-            __typename
-            ... on Unauthentication {
-              message
-            }
-            ... on ServerError {
-              message
-            }
-          }
-        } 
-      }`;
+    const fbLogin = fbLoginRequestPayload("fake token");
     const response = await query({ query: fbLogin });
 
     // to remove [Object: null prototype] from each object

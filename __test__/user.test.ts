@@ -145,7 +145,7 @@ describe("User", () => {
   beforeAll(async () => {
     // Get Token by Login
     const funwarnToken = await shareLogin();
-    accessToken = funwarnToken.data.fbLogin.user.access_token;
+    accessToken = funwarnToken.data.fbLogin.user.access_token.token;
 
     // Pass req/header to context, Real Token
     const reqWithRealToken = {
