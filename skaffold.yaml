@@ -1,0 +1,27 @@
+apiVersion: skaffold/v2beta4
+kind: Config
+build:
+  artifacts:
+  - image: keonakhon/service-user
+deploy:
+  kubectl:
+    manifests:
+    - kubernetes/workload.yaml
+    - kubernetes/service.yaml
+profiles:
+  - name: skaffold-service-user
+    activation:
+      - command: skaffold-service-user
+    build:
+      artifacts:
+      - image: keonakhon/service-user
+        context: backend
+        docker:
+          buildArgs:
+            ENV: development
+        sync:
+          manual:
+          # Sync all the javascript files that are in the src folder
+          # with the container src folder
+          - src: '**/*.js'
+            dest: .

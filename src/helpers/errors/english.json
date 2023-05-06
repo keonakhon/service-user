@@ -1,0 +1,38 @@
+{
+  "SomethingWrong": {
+    "success": false,
+    "errors": [
+      {
+        "__typename": "SomethingWrong",
+        "message": "Something went wrong, Please try again"
+      }
+    ]
+  },
+  "InvalidToken": {
+    "success": false,
+    "errors": [
+      {
+        "__typename": "InvalidToken",
+        "message": "Invalid Token"
+      }
+    ]
+  },
+  "EmailIsRequired": {
+    "success": false,
+    "errors": [
+      {
+        "__typename": "EmailIsRequired",
+        "message": "Please allow us to get your email"
+      }
+    ]
+  },
+  "UsernameAlreadyExists": {
+    "success": false,
+    "errors": [
+      {
+        "__typename": "UsernameAlreadyExists",
+        "message": "This username already exists"
+      }
+    ]
+  }
+}

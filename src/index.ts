@@ -1,13 +1,11 @@
-import express from 'express';
-const app = express();
-const port = 8080; // default port to listen
+import createApp from "./app";
+import createContext from "./context";
 
-// define a route handler for the default home page
-app.get('/', (req, res) => {
-  res.send('Hello world!');
-});
-
-// start the Express server
-app.listen(port, () => {
-  console.log(`server started at http://localhost:${port}`);
+const server = createApp(createContext);
+server?.listen().then(() => {
+  console.log(`
+    Server is running!
+    Listening on port 4000
+    Query at https://studio.apollographql.com/dev
+  `);
 });
