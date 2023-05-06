@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-user
+spec:
+  selector:
+    matchLabels:
+      app: service-user
+  replicas: 1
+  template: # template for the pods
+    metadata:
+      labels:
+        app: service-user
+    spec:
+      containers:
+        - name: service-user
+          image: keonakhon/service-user
+          # imagePullPolicy: Never
+          ports:
+            - containerPort: 3000
+    

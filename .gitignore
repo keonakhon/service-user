@@ -1,10 +1,17 @@
+#macos
+.DS_Store
+
 #environment
 .env
 
 # dependencies
+yarn.lock
 package-lock.json
 /node_modules
 .vscode
 
 # production
 /dist
+
+# secret or token
+/__test__/util/static/
