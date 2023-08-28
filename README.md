@@ -1,6 +1,6 @@
 ## Service User: Login with Facebook
 
-This was a project that I attempted to implement in 2020 for my side project, involving the handling of errors as described in the article https://productionreadygraphql.com/2020-08-01-guide-to-graphql-errors
+This was a project that I attempted to implement in 2020 for my side project, involving the handling of errors as described in the article which focused on the implementation on the Frontend https://productionreadygraphql.com/2020-08-01-guide-to-graphql-errors
 
 Tech Stack:
 
