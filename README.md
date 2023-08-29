@@ -1,6 +1,6 @@
 ## Service User: Login with Facebook
 
-This was a project that I attempted to implement in 2020 for my side project, involving the handling of errors as described in the article which focused on the implementation on the Frontend https://productionreadygraphql.com/2020-08-01-guide-to-graphql-errors
+This was a project that I attempted to implement in 2020 for my side project. I followed the error handler from this blog, which focused on the implementation on the Frontend. You can find it at https://productionreadygraphql.com/2020-08-01-guide-to-graphql-errors. However, this repository only focuses on the implementation on the Backend side.
 
 Tech Stack:
 
@@ -10,4 +10,4 @@ Tech Stack:
 - Jest
 - Docker
 - Kubernetes
-- Skaffold (run-time for K8S)
+- Skaffold (runtime for K8S)
